@@ -1,0 +1,24 @@
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+    //Android
+    androidApplicationId = "com.redbooth"
+    androidBuildToolsVersion = "23.0.2"
+    androidMinSdkVersion = 11
+    androidTargetSdkVersion = 23
+    androidCompileSdkVersion = 23
+    androidVersionCode = 1
+    androidVersionName = "1.0.0"
+
+    //Libraries Versions
+    androidSupportVersion = "23.2.0"
+
+    mobileDependencies = [
+        AppCompat: "com.android.support:appcompat-v7:${androidSupportVersion}",
+        DesignLibrary: "com.android.support:design:${androidSupportVersion}",
+    ]
+}
