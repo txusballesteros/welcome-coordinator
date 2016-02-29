@@ -2,18 +2,14 @@ package com.redbooth;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     public static final int WITHOUT_MARGIN = 0;
@@ -102,5 +98,9 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
             touchEventCaptured = super.onTouchEvent(event);
         }
         return touchEventCaptured;
+    }
+
+    public void notifyProgressScroll(float progress) {
+        Log.d("PROGRESS", "page progress: " + progress);
     }
 }
