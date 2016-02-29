@@ -2,13 +2,24 @@ package com.redbooth;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
+import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
 
-public class WelcomeCoordinatorLayout extends ViewGroup {
+import java.util.ArrayList;
+import java.util.List;
+
+public class WelcomeCoordinatorLayout extends HorizontalScrollView {
+    public static final int WITHOUT_MARGIN = 0;
     private WelcomeCoordinatorTouchController touchController;
+    private WelcomeCoordinatorPageInflater pageInflater;
+    private FrameLayout mainContentView;
 
     public WelcomeCoordinatorLayout(Context context) {
         super(context);
@@ -32,16 +43,57 @@ public class WelcomeCoordinatorLayout extends ViewGroup {
         initializeView();
     }
 
-    private void initializeView() {
-        touchController = new WelcomeCoordinatorTouchController(this);
+    public void addPage(@LayoutRes int layoutResourceId) {
+        final View pageView = pageInflater.inflate(layoutResourceId);
+        mainContentView.addView(pageView);
+        requestLayout();
     }
 
     protected int getNumOfPages() {
-        return 4;
+        int result = 0;
+        if (mainContentView != null) {
+            result = mainContentView.getChildCount();
+        }
+        return result;
+    }
+
+    private void initializeView() {
+        this.setHorizontalScrollBarEnabled(false);
+        this.setOverScrollMode(OVER_SCROLL_NEVER);
+        touchController = new WelcomeCoordinatorTouchController(this);
+        pageInflater = new WelcomeCoordinatorPageInflater(this);
+        buildMainContentView();
+        attachMainContentView();
+    }
+
+    private void buildMainContentView() {
+        mainContentView = new FrameLayout(this.getContext());
+        mainContentView.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
+                LayoutParams.MATCH_PARENT));
+    }
+
+    private void attachMainContentView() {
+        removeAllViews();
+        addView(mainContentView);
     }
 
     @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) { }
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        for (int index = 0; index < getNumOfPages(); index++) {
+            configurePageLayout(mainContentView.getChildAt(index), index);
+        }
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    private void configurePageLayout(View pageView, int position) {
+        int coordinatorWidth = getMeasuredWidth();
+        int pageWidth = (coordinatorWidth * (getNumOfPages() - position));
+        int pageMarginLeft = (coordinatorWidth * position);
+        int originalHeight = pageView.getLayoutParams().height;
+        FrameLayout.LayoutParams layoutParams = new LayoutParams(pageWidth, originalHeight);
+        layoutParams.setMargins(pageMarginLeft, WITHOUT_MARGIN, WITHOUT_MARGIN, WITHOUT_MARGIN);
+        pageView.setLayoutParams(layoutParams);
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
