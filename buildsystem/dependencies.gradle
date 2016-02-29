@@ -16,9 +16,15 @@ ext {
 
     //Libraries Versions
     androidSupportVersion = "23.2.0"
+    butterKnifeVersion = "7.0.1"
 
     mobileDependencies = [
         AppCompat: "com.android.support:appcompat-v7:${androidSupportVersion}",
         DesignLibrary: "com.android.support:design:${androidSupportVersion}",
+        ButterKnife: "com.jakewharton:butterknife:${butterKnifeVersion}",
+    ]
+
+    libraryDependencies = [
+        AndroidAnnotations: "com.android.support:support-annotations:${androidSupportVersion}",
     ]
 }
