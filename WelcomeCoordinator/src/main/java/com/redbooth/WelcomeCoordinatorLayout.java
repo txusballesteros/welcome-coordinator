@@ -5,17 +5,20 @@ import android.content.Context;
 import android.os.Build;
 import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     public static final int WITHOUT_MARGIN = 0;
     private WelcomeCoordinatorTouchController touchController;
     private WelcomeCoordinatorPageInflater pageInflater;
     private FrameLayout mainContentView;
+    private List<BehaviorAnimation> behaviorAnimations = new ArrayList<>();
 
     public WelcomeCoordinatorLayout(Context context) {
         super(context);
@@ -62,6 +65,15 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         attachMainContentView();
     }
 
+    public void initAndroidView(int android_launch) {
+        View androidView = findViewById(android_launch);
+        BehaviorAnimation.Builder builder = new BehaviorAnimation.Builder();
+        builder.setView(androidView);
+        builder.setParentView(this);
+        BehaviorAnimation behaviorAnimation = builder.build();
+        behaviorAnimations.add(behaviorAnimation);
+    }
+
     private void buildMainContentView() {
         mainContentView = new FrameLayout(this.getContext());
         mainContentView.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
@@ -70,6 +82,7 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
 
     private void attachMainContentView() {
         removeAllViews();
+        setClipChildren(false);
         addView(mainContentView);
     }
 
@@ -101,6 +114,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     }
 
     public void notifyProgressScroll(float progress) {
-        Log.d("PROGRESS", "page progress: " + progress);
+        for (BehaviorAnimation behaviorAnimation : behaviorAnimations) {
+            behaviorAnimation.setCurrentPlayTime(progress);
+        }
     }
 }
