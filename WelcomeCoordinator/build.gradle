@@ -25,3 +25,8 @@ android {
         }
     }
 }
+
+dependencies {
+    def libraryDependencies = globalConfiguration.libraryDependencies
+    compile libraryDependencies.AndroidAnnotations
+}
