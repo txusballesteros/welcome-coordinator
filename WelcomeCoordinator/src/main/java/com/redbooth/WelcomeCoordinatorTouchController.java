@@ -20,8 +20,12 @@ class WelcomeCoordinatorTouchController {
     private VelocityTracker velocityTracker;
     private ObjectAnimator smoothScrollAnimator;
 
-    public WelcomeCoordinatorTouchController(WelcomeCoordinatorLayout view) {
+    public WelcomeCoordinatorTouchController(final WelcomeCoordinatorLayout view) {
         this.view = view;
+        configureLayoutListener();
+    }
+
+    private void configureLayoutListener() {
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -36,6 +40,16 @@ class WelcomeCoordinatorTouchController {
                 } else {
                     viewTreeObserver.removeGlobalOnLayoutListener(this);
                 }
+                configureScrollListener();
+            }
+        });
+    }
+
+    private void configureScrollListener() {
+        view.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                view.notifyProgressScroll(view.getScrollX() / (float) view.getWidth());
             }
         });
     }
