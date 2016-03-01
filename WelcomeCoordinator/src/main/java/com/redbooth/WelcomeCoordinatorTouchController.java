@@ -11,7 +11,7 @@ import android.view.animation.DecelerateInterpolator;
 class WelcomeCoordinatorTouchController {
     public static final int MAX_VELOCITY = 300;
     public static final int CURRENT_VELOCITY = 1000;
-    public static final long SMOOTH_SCROLL_DURATION = 600L;
+    public static final long SMOOTH_SCROLL_DURATION = 300;
     public static final String PROPERTY_SCROLL_X = "scrollX";
     private final WelcomeCoordinatorLayout view;
     private float iniEventX;
