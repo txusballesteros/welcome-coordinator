@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.redbooth.WelcomePageLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#5500ff00">
@@ -13,6 +14,8 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="80dp"
         android:textSize="30dp"
-        android:text="Welcome Page 2" />
+        android:text="Welcome Page 2"
+        app:view_behavior=".AnimationFlyTo"
+        app:destiny="@+id/android_destiny" />
 
 </com.redbooth.WelcomePageLayout>
