@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
                 R.layout.welcome_page_3,
                 R.layout.welcome_page_4);
         final ValueAnimator backgroundAnimator = ValueAnimator.ofObject(new ArgbEvaluator(),
-                        0xffff0000, 0xff00ff00, 0xff0000ff, 0xffff00ff);
+                        0xff68B7AB, 0xff5088B8, 0xff61A3B6, 0xffffffff);
         backgroundAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {

@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <ImageView
         android:id="@+id/android_go_to_place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="80dp"
-        android:textSize="30dp"
-        android:text="Welcome Page 2"
+        android:src="@drawable/ic_face_80dp"
         app:view_behavior=".AnimationFlyTo"
         app:destiny="@+id/android_destiny" />
 

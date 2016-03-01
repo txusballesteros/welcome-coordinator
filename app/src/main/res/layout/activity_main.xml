@@ -8,6 +8,7 @@
     <com.redbooth.WelcomeCoordinatorLayout
         android:id="@+id/coordinator"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="#68B7AB"/>
 
 </RelativeLayout>
