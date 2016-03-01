@@ -1,25 +1,34 @@
-package com.redbooth;
+package com.redbooth.demo;
 
 import android.animation.ObjectAnimator;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
-public class BehaviorAnimation {
+import com.redbooth.WelcomeCoordinatorLayout;
+import com.redbooth.WelcomePageBehavior;
+
+public class AnimationLaunch extends WelcomePageBehavior {
     public static final long DURATION = 10000L;
     private ObjectAnimator objectAnimatorY;
     private ObjectAnimator objectAnimatorX;
-    private View view;
-    private View parentView;
 
-    private void configure() {
+    public AnimationLaunch(@NonNull WelcomeCoordinatorLayout coordinatorLayout, @NonNull View view, @Nullable View destinyView) {
+        super(coordinatorLayout, view, destinyView);
+    }
+
+    @Override
+    public void configure() {
         objectAnimatorY = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, 0, -view.getTop() -view.getHeight());
         objectAnimatorY.setDuration(DURATION);
         objectAnimatorY.setInterpolator(new LinearInterpolator());
-        objectAnimatorX = ObjectAnimator.ofFloat(view, View.TRANSLATION_X, 0, parentView.getWidth());
+        objectAnimatorX = ObjectAnimator.ofFloat(view, View.TRANSLATION_X, 0, coordinatorLayout.getWidth());
         objectAnimatorX.setDuration(DURATION);
         objectAnimatorX.setInterpolator(new LinearInterpolator());
     }
 
+    @Override
     public void setCurrentPlayTime(float progress) {
         if (progress < 1) {
             long playTime = (long) (progress * DURATION);
@@ -28,29 +37,6 @@ public class BehaviorAnimation {
         } else {
             objectAnimatorY.setCurrentPlayTime(1);
             objectAnimatorX.setCurrentPlayTime(1);
-        }
-    }
-
-    public static class Builder {
-        private final BehaviorAnimation behaviorAnimation;
-
-        public Builder() {
-            behaviorAnimation = new BehaviorAnimation();
-        }
-
-        public Builder setView(View view) {
-            behaviorAnimation.view = view;
-            return this;
-        }
-
-        public Builder setParentView(View parentView) {
-            behaviorAnimation.parentView = parentView;
-            return this;
-        }
-
-        public BehaviorAnimation build() {
-            behaviorAnimation.configure();
-            return behaviorAnimation;
         }
     }
 }

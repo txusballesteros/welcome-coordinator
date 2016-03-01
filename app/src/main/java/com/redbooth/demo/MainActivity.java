@@ -3,6 +3,7 @@ package com.redbooth.demo;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewTreeObserver;
 
 import com.redbooth.WelcomeCoordinatorLayout;
@@ -29,7 +30,9 @@ public class MainActivity extends AppCompatActivity {
         coordinatorLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                coordinatorLayout.initAndroidView(R.id.android_launch);
+                View androidView = findViewById(R.id.android_launch);
+                AnimationLaunch animationLaunch = new AnimationLaunch(coordinatorLayout, androidView, AnimationLaunch.NON_DESTINY);
+                coordinatorLayout.addBehavior(animationLaunch);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     coordinatorLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 } else {

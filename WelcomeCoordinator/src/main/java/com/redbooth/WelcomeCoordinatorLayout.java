@@ -18,7 +18,7 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     private WelcomeCoordinatorTouchController touchController;
     private WelcomeCoordinatorPageInflater pageInflater;
     private FrameLayout mainContentView;
-    private List<BehaviorAnimation> behaviorAnimations = new ArrayList<>();
+    private List<WelcomePageBehavior> welcomePageBehaviorAnimations = new ArrayList<>();
 
     public WelcomeCoordinatorLayout(Context context) {
         super(context);
@@ -65,13 +65,9 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         attachMainContentView();
     }
 
-    public void initAndroidView(int android_launch) {
-        View androidView = findViewById(android_launch);
-        BehaviorAnimation.Builder builder = new BehaviorAnimation.Builder();
-        builder.setView(androidView);
-        builder.setParentView(this);
-        BehaviorAnimation behaviorAnimation = builder.build();
-        behaviorAnimations.add(behaviorAnimation);
+    public void addBehavior(WelcomePageBehavior welcomePageBehavior) {
+        welcomePageBehavior.configure();
+        welcomePageBehaviorAnimations.add(welcomePageBehavior);
     }
 
     private void buildMainContentView() {
@@ -114,8 +110,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     }
 
     public void notifyProgressScroll(float progress) {
-        for (BehaviorAnimation behaviorAnimation : behaviorAnimations) {
-            behaviorAnimation.setCurrentPlayTime(progress);
+        for (WelcomePageBehavior welcomePageBehavior : welcomePageBehaviorAnimations) {
+            welcomePageBehavior.setCurrentPlayTime(progress);
         }
     }
 }
