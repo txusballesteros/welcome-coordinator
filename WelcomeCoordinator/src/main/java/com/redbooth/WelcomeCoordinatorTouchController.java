@@ -2,6 +2,7 @@ package com.redbooth;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.os.Build;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -133,7 +134,8 @@ class WelcomeCoordinatorTouchController {
             smoothScrollAnimator.setInterpolator(new DecelerateInterpolator());
             smoothScrollAnimator.addListener(new Animator.AnimatorListener() {
                 @Override
-                public void onAnimationStart(Animator animation) { }
+                public void onAnimationStart(Animator animation) {
+                }
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
@@ -146,10 +148,20 @@ class WelcomeCoordinatorTouchController {
                 }
 
                 @Override
-                public void onAnimationCancel(Animator animation) { }
+                public void onAnimationCancel(Animator animation) {
+                }
 
                 @Override
-                public void onAnimationRepeat(Animator animation) { }
+                public void onAnimationRepeat(Animator animation) {
+                }
+            });
+            smoothScrollAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    if (onPageScrollListener != null) {
+                        onPageScrollListener.onScrollPage(view.getScrollX());
+                    }
+                }
             });
             smoothScrollAnimator.start();
         }
@@ -169,7 +181,7 @@ class WelcomeCoordinatorTouchController {
     }
 
     public interface OnPageScrollListener {
-        void onScrollPage(float scrollProgress);
+        void onScrollPage(float progress);
         void onPageSelected(int pageSelected);
     }
 }

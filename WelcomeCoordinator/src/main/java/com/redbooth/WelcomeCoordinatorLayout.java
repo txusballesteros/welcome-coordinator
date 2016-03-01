@@ -136,8 +136,10 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         this.onPageScrollListener = onPageScrollListener;
         touchController.setOnPageScrollListener(new WelcomeCoordinatorTouchController.OnPageScrollListener() {
             @Override
-            public void onScrollPage(float scrollProgress) {
-                WelcomeCoordinatorLayout.this.onPageScrollListener.onScrollPage(WelcomeCoordinatorLayout.this, scrollProgress);
+            public void onScrollPage(float progress) {
+                int numOfPages = (getNumOfPages() - 1);
+                int maximumScroll = getMeasuredWidth() * numOfPages;
+                WelcomeCoordinatorLayout.this.onPageScrollListener.onScrollPage(WelcomeCoordinatorLayout.this, progress, maximumScroll);
             }
 
             @Override
@@ -147,8 +149,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         });
     }
 
-    public static interface OnPageScrollListener {
-        void onScrollPage(View v, float scrollProgress);
+    public interface OnPageScrollListener {
+        void onScrollPage(View v, float progress, float maximum);
         void onPageSelected(View v, int pageSelected);
     }
 }
