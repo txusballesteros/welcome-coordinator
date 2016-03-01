@@ -2,5 +2,6 @@
 <resources>
     <declare-styleable name="WelcomePageLayout_LayoutParams">
         <attr name="view_behavior" format="string"/>
+        <attr name="destiny" format="integer|reference"/>
     </declare-styleable>
 </resources>

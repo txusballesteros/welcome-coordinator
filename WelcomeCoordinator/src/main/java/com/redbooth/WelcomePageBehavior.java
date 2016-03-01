@@ -1,23 +1,59 @@
 package com.redbooth;
 
+import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewTreeObserver;
 
 public abstract class WelcomePageBehavior {
+    static final Class<?>[] CONSTRUCTOR_PARAMS = new Class<?>[] {
+            Context.class,
+            AttributeSet.class
+    };
+
     public static final View NON_DESTINY = null;
-    protected final WelcomeCoordinatorLayout coordinatorLayout;
-    protected final View view;
-    protected final View destinyView;
+    protected WelcomeCoordinatorLayout coordinatorLayout;
+    protected View targetView;
+    protected View destinyView;
+    private Context context;
+    private AttributeSet attributes;
+
+    void setCoordinator(WelcomeCoordinatorLayout coordinator) {
+        this.coordinatorLayout = coordinator;
+        this.coordinatorLayout.getViewTreeObserver()
+                .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        onConfigure();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                            coordinatorLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        } else {
+                            coordinatorLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                        }
+                    }
+                });
+    }
+
+    void setTarget(View target) {
+        this.targetView = target;
+    }
+
+    public WelcomePageBehavior(@NonNull Context context, @NonNull AttributeSet attributes) {
+        this.context = context;
+        this.attributes = attributes;
+    }
 
     public WelcomePageBehavior(@NonNull WelcomeCoordinatorLayout coordinatorLayout,
-                               @NonNull View view, @Nullable View destinyView) {
+                               @NonNull View targetView, @Nullable View destinyView) {
         this.coordinatorLayout = coordinatorLayout;
-        this.view = view;
+        this.targetView = targetView;
         this.destinyView = destinyView;
     }
 
-    public abstract void configure();
+    protected abstract void onConfigure();
 
     public abstract void setCurrentPlayTime(float progress);
 }

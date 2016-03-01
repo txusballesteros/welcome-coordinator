@@ -2,14 +2,11 @@ package com.redbooth;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.annotation.LayoutRes;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 
@@ -21,7 +18,7 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     private WelcomeCoordinatorTouchController touchController;
     private WelcomeCoordinatorPageInflater pageInflater;
     private FrameLayout mainContentView;
-    private List<WelcomePageBehavior> welcomePageBehaviorAnimations = new ArrayList<>();
+    private List<WelcomePageBehavior> behaviors = new ArrayList<>();
 
     public WelcomeCoordinatorLayout(Context context) {
         super(context);
@@ -47,8 +44,21 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
 
     public void addPage(@LayoutRes int layoutResourceId) {
         final View pageView = pageInflater.inflate(layoutResourceId);
+        extractBehaviors(pageView);
         mainContentView.addView(pageView);
         requestLayout();
+    }
+
+    private void extractBehaviors(View view) {
+        if (view instanceof WelcomePageLayout) {
+            final WelcomePageLayout pageLayout = (WelcomePageLayout)view;
+            for (int index = 0; index < pageLayout.getChildCount(); index++) {
+                List<WelcomePageBehavior> behaviors = pageLayout.getBehaviors(this);
+                if (!behaviors.isEmpty()) {
+                    this.behaviors.addAll(behaviors);
+                }
+            }
+        }
     }
 
     protected int getNumOfPages() {
@@ -69,8 +79,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     }
 
     public void addBehavior(WelcomePageBehavior welcomePageBehavior) {
-        welcomePageBehavior.configure();
-        welcomePageBehaviorAnimations.add(welcomePageBehavior);
+        welcomePageBehavior.onConfigure();
+        behaviors.add(welcomePageBehavior);
     }
 
     private void buildMainContentView() {
@@ -114,51 +124,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     }
 
     public void notifyProgressScroll(float progress) {
-        for (WelcomePageBehavior welcomePageBehavior : welcomePageBehaviorAnimations) {
+        for (WelcomePageBehavior welcomePageBehavior : behaviors) {
             welcomePageBehavior.setCurrentPlayTime(progress);
-        }
-    }
-
-    public static class LayoutParams extends ViewGroup.LayoutParams {
-        public LayoutParams(Context context, AttributeSet attrs) {
-            super(context, attrs);
-        }
-
-        public LayoutParams(int width, int height) {
-            super(width, height);
-        }
-
-        public LayoutParams(ViewGroup.LayoutParams source) {
-            super(source);
-        }
-
-        private void extractAttributes(Context context, AttributeSet attrs) {
-            final TypedArray attributes = context.obtainStyledAttributes(attrs,
-                    R.styleable.WelcomeCoordinatorLayout_LayoutParams);
-            if (attributes.hasValue(R.styleable.WelcomePageLayout_LayoutParams_view_behavior)) {
-                parseViewBehavior(context, attributes
-                        .getString(R.styleable.WelcomePageLayout_LayoutParams_view_behavior));
-            }
-            attributes.recycle();
-        }
-
-        private void parseViewBehavior(Context context, String behaviorClassName) {
-            if (TextUtils.isEmpty(behaviorClassName)) {
-                return;
-            }
-            final String fullName;
-            if (behaviorClassName.startsWith(".")) {
-                fullName = context.getPackageName() + behaviorClassName;
-            } else {
-                fullName = behaviorClassName;
-            }
-
-            try {
-                Class behaviorClazz = Class.forName(fullName, true, context.getClassLoader());
-
-            } catch (Exception e) {
-                throw new RuntimeException("Could not inflate View Behavior subclass " + fullName, e);
-            }
         }
     }
 }

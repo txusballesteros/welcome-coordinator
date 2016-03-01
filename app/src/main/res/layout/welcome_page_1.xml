@@ -15,6 +15,6 @@
         android:layout_marginLeft="80dp"
         android:textSize="30dp"
         android:text="Welcome Page 1"
-        app:view_behavior=".behaviors.MainBehavior" />
+        app:view_behavior=".AnimationLaunch" />
 
 </com.redbooth.WelcomePageLayout>
