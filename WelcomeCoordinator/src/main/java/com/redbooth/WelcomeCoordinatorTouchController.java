@@ -1,5 +1,6 @@
 package com.redbooth;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.os.Build;
 import android.view.MotionEvent;
@@ -19,6 +20,7 @@ class WelcomeCoordinatorTouchController {
     private int maxScroll = 0;
     private VelocityTracker velocityTracker;
     private ObjectAnimator smoothScrollAnimator;
+    private OnPageScrollListener onPageScrollListener;
 
     public WelcomeCoordinatorTouchController(final WelcomeCoordinatorLayout view) {
         this.view = view;
@@ -96,6 +98,9 @@ class WelcomeCoordinatorTouchController {
         } else {
             view.scrollTo(value, view.getScrollY());
         }
+        if (onPageScrollListener != null) {
+            onPageScrollListener.onScrollPage(value);
+        }
     }
 
     private void moveToPagePosition(float xVelocity) {
@@ -122,10 +127,32 @@ class WelcomeCoordinatorTouchController {
 
     private void smoothScrollX(int scrollX) {
         cancelScrollAnimationIfNecessary();
-        smoothScrollAnimator = ObjectAnimator.ofInt(view, PROPERTY_SCROLL_X, view.getScrollX(), scrollX);
-        smoothScrollAnimator.setDuration(SMOOTH_SCROLL_DURATION);
-        smoothScrollAnimator.setInterpolator(new DecelerateInterpolator());
-        smoothScrollAnimator.start();
+        if (view.getScrollX() != scrollX) {
+            smoothScrollAnimator = ObjectAnimator.ofInt(view, PROPERTY_SCROLL_X, view.getScrollX(), scrollX);
+            smoothScrollAnimator.setDuration(SMOOTH_SCROLL_DURATION);
+            smoothScrollAnimator.setInterpolator(new DecelerateInterpolator());
+            smoothScrollAnimator.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) { }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    if (onPageScrollListener != null) {
+                        int width = view.getWidth();
+                        int page = view.getScrollX() / width;
+                        int limitedNumPage = Math.max(0, Math.min(view.getNumOfPages() - 1, page));
+                        onPageScrollListener.onPageSelected(limitedNumPage);
+                    }
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) { }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) { }
+            });
+            smoothScrollAnimator.start();
+        }
     }
 
     private void cancelScrollAnimationIfNecessary() {
@@ -135,5 +162,14 @@ class WelcomeCoordinatorTouchController {
             view.clearAnimation();
             smoothScrollAnimator = null;
         }
+    }
+
+    public void setOnPageScrollListener(OnPageScrollListener onPageScrollListener) {
+        this.onPageScrollListener = onPageScrollListener;
+    }
+
+    public interface OnPageScrollListener {
+        void onScrollPage(float scrollProgress);
+        void onPageSelected(int pageSelected);
     }
 }

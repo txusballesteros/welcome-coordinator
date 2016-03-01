@@ -7,7 +7,6 @@ import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 
@@ -20,6 +19,7 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     private WelcomeCoordinatorPageInflater pageInflater;
     private FrameLayout mainContentView;
     private List<WelcomePageBehavior> behaviors = new ArrayList<>();
+    private OnPageScrollListener onPageScrollListener;
 
     public WelcomeCoordinatorLayout(Context context) {
         super(context);
@@ -132,13 +132,23 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         }
     }
 
-    public void configureBehaviors() {
-        for (WelcomePageBehavior welcomePageBehavior : behaviors) {
-            welcomePageBehavior.onConfigure();
-        }
+    public void setOnPageScrollListener(OnPageScrollListener onPageScrollListener) {
+        this.onPageScrollListener = onPageScrollListener;
+        touchController.setOnPageScrollListener(new WelcomeCoordinatorTouchController.OnPageScrollListener() {
+            @Override
+            public void onScrollPage(float scrollProgress) {
+                WelcomeCoordinatorLayout.this.onPageScrollListener.onScrollPage(WelcomeCoordinatorLayout.this, scrollProgress);
+            }
+
+            @Override
+            public void onPageSelected(int pageSelected) {
+                WelcomeCoordinatorLayout.this.onPageScrollListener.onPageSelected(WelcomeCoordinatorLayout.this, pageSelected);
+            }
+        });
     }
 
-    public void clearBehaviors() {
-        behaviors.clear();
+    public static interface OnPageScrollListener {
+        void onScrollPage(View v, float scrollProgress);
+        void onPageSelected(View v, int pageSelected);
     }
 }
