@@ -10,13 +10,12 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 
 public abstract class WelcomePageBehavior {
-    private final static int NO_DESTINY_VIEW = -1;
-
     static final Class<?>[] CONSTRUCTOR_PARAMS = new Class<?>[] {
             Context.class,
             AttributeSet.class
     };
 
+    private final static int NO_DESTINY_VIEW = -1;
     public static final View NON_DESTINY = null;
     protected WelcomeCoordinatorLayout coordinatorLayout;
     private View targetView;
