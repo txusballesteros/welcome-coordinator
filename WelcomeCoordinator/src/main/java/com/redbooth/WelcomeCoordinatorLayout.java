@@ -2,12 +2,15 @@ package com.redbooth;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.annotation.LayoutRes;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 
@@ -32,8 +35,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         initializeView();
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @SuppressWarnings("unused")
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public WelcomeCoordinatorLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initializeView();
@@ -86,7 +89,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         int pageWidth = (coordinatorWidth * (getNumOfPages() - position));
         int pageMarginLeft = (coordinatorWidth * position);
         int originalHeight = pageView.getLayoutParams().height;
-        FrameLayout.LayoutParams layoutParams = new LayoutParams(pageWidth, originalHeight);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout
+                .LayoutParams(pageWidth, originalHeight);
         layoutParams.setMargins(pageMarginLeft, WITHOUT_MARGIN, WITHOUT_MARGIN, WITHOUT_MARGIN);
         pageView.setLayoutParams(layoutParams);
     }
@@ -102,5 +106,48 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
 
     public void notifyProgressScroll(float progress) {
         Log.d("PROGRESS", "page progress: " + progress);
+    }
+
+    public static class LayoutParams extends ViewGroup.LayoutParams {
+        public LayoutParams(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        public LayoutParams(int width, int height) {
+            super(width, height);
+        }
+
+        public LayoutParams(ViewGroup.LayoutParams source) {
+            super(source);
+        }
+
+        private void extractAttributes(Context context, AttributeSet attrs) {
+            final TypedArray attributes = context.obtainStyledAttributes(attrs,
+                    R.styleable.WelcomeCoordinatorLayout_LayoutParams);
+            if (attributes.hasValue(R.styleable.WelcomePageLayout_LayoutParams_view_behavior)) {
+                parseViewBehavior(context, attributes
+                        .getString(R.styleable.WelcomePageLayout_LayoutParams_view_behavior));
+            }
+            attributes.recycle();
+        }
+
+        private void parseViewBehavior(Context context, String behaviorClassName) {
+            if (TextUtils.isEmpty(behaviorClassName)) {
+                return;
+            }
+            final String fullName;
+            if (behaviorClassName.startsWith(".")) {
+                fullName = context.getPackageName() + behaviorClassName;
+            } else {
+                fullName = behaviorClassName;
+            }
+
+            try {
+                Class behaviorClazz = Class.forName(fullName, true, context.getClassLoader());
+
+            } catch (Exception e) {
+                throw new RuntimeException("Could not inflate View Behavior subclass " + fullName, e);
+            }
+        }
     }
 }
