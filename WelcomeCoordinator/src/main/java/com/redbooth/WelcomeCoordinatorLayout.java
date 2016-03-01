@@ -7,18 +7,21 @@ import android.os.Build;
 import android.support.annotation.LayoutRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     public static final int WITHOUT_MARGIN = 0;
     private WelcomeCoordinatorTouchController touchController;
     private WelcomeCoordinatorPageInflater pageInflater;
     private FrameLayout mainContentView;
+    private List<WelcomePageBehavior> welcomePageBehaviorAnimations = new ArrayList<>();
 
     public WelcomeCoordinatorLayout(Context context) {
         super(context);
@@ -65,6 +68,11 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         attachMainContentView();
     }
 
+    public void addBehavior(WelcomePageBehavior welcomePageBehavior) {
+        welcomePageBehavior.configure();
+        welcomePageBehaviorAnimations.add(welcomePageBehavior);
+    }
+
     private void buildMainContentView() {
         mainContentView = new FrameLayout(this.getContext());
         mainContentView.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
@@ -73,6 +81,7 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
 
     private void attachMainContentView() {
         removeAllViews();
+        setClipChildren(false);
         addView(mainContentView);
     }
 
@@ -105,7 +114,9 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     }
 
     public void notifyProgressScroll(float progress) {
-        Log.d("PROGRESS", "page progress: " + progress);
+        for (WelcomePageBehavior welcomePageBehavior : welcomePageBehaviorAnimations) {
+            welcomePageBehavior.setCurrentPlayTime(progress);
+        }
     }
 
     public static class LayoutParams extends ViewGroup.LayoutParams {
