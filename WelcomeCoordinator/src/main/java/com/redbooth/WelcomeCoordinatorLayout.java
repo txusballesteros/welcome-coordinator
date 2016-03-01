@@ -69,7 +69,6 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     }
 
     public void addBehavior(WelcomePageBehavior welcomePageBehavior) {
-        //welcomePageBehavior.configure();
         welcomePageBehaviorAnimations.add(welcomePageBehavior);
     }
 

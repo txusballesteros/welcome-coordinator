@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
                                   R.layout.welcome_page_2,
                                   R.layout.welcome_page_3,
                                   R.layout.welcome_page_4);
-        
+
         coordinatorLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
