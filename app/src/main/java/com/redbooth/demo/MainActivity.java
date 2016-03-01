@@ -23,16 +23,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializePages() {
-        coordinatorLayout.addPage(R.layout.welcome_page_1);
-        coordinatorLayout.addPage(R.layout.welcome_page_2);
-        coordinatorLayout.addPage(R.layout.welcome_page_3);
-        coordinatorLayout.addPage(R.layout.welcome_page_4);
+        coordinatorLayout.addPage(R.layout.welcome_page_1,
+                                  R.layout.welcome_page_2,
+                                  R.layout.welcome_page_3,
+                                  R.layout.welcome_page_4);
+        
         coordinatorLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
+
+                coordinatorLayout.clearBehaviors();
+
                 View androidView = findViewById(R.id.android_launch);
                 AnimationLaunch animationLaunch = new AnimationLaunch(coordinatorLayout, androidView, AnimationLaunch.NON_DESTINY);
                 coordinatorLayout.addBehavior(animationLaunch);
+
+                View androidGoToPlaceView = findViewById(R.id.android_go_to_place);
+                View androidDestinyView = findViewById(R.id.android_destiny);
+                AnimationFlyTo animationFlyTo = new AnimationFlyTo(coordinatorLayout, androidGoToPlaceView, androidDestinyView);
+                coordinatorLayout.addBehavior(animationFlyTo);
+
+                coordinatorLayout.configureBehaviors();
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     coordinatorLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 } else {
