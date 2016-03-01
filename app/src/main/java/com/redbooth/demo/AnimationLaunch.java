@@ -1,12 +1,12 @@
 package com.redbooth.demo;
 
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
-import com.redbooth.WelcomeCoordinatorLayout;
 import com.redbooth.WelcomePageBehavior;
 
 public class AnimationLaunch extends WelcomePageBehavior {
@@ -14,16 +14,16 @@ public class AnimationLaunch extends WelcomePageBehavior {
     private ObjectAnimator objectAnimatorY;
     private ObjectAnimator objectAnimatorX;
 
-    public AnimationLaunch(@NonNull WelcomeCoordinatorLayout coordinatorLayout, @NonNull View view, @Nullable View destinyView) {
-        super(coordinatorLayout, view, destinyView);
+    public AnimationLaunch(@NonNull Context context, @NonNull AttributeSet attributes) {
+        super(context, attributes);
     }
 
     @Override
-    public void configure() {
-        objectAnimatorY = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, 0, -view.getTop() -view.getHeight());
+    protected void onConfigure() {
+        objectAnimatorY = ObjectAnimator.ofFloat(getTargetView(), View.TRANSLATION_Y, 0, -getTargetView().getTop() - getTargetView().getHeight());
         objectAnimatorY.setDuration(DURATION);
         objectAnimatorY.setInterpolator(new LinearInterpolator());
-        objectAnimatorX = ObjectAnimator.ofFloat(view, View.TRANSLATION_X, 0, coordinatorLayout.getWidth());
+        objectAnimatorX = ObjectAnimator.ofFloat(getTargetView(), View.TRANSLATION_X, 0, coordinatorLayout.getWidth());
         objectAnimatorX.setDuration(DURATION);
         objectAnimatorX.setInterpolator(new LinearInterpolator());
     }

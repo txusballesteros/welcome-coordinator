@@ -1,8 +1,10 @@
 package com.redbooth.demo;
 
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
@@ -19,20 +21,20 @@ public class AnimationFlyTo extends WelcomePageBehavior {
     private ObjectAnimator objectAnimatorY;
     private ObjectAnimator objectAnimatorX;
 
-    public AnimationFlyTo(@NonNull WelcomeCoordinatorLayout coordinatorLayout, @NonNull View view, @Nullable View destinyView) {
-        super(coordinatorLayout, view, destinyView);
+    public AnimationFlyTo(@NonNull Context context, @NonNull AttributeSet attributes) {
+        super(context, attributes);
     }
 
     @Override
-    public void configure() {
+    protected void onConfigure() {
         int[] viewLocation = new int[LENGTH_LOCATION_ARRAY];
-        getLeftPositionFrom(view, viewLocation);
+        getLeftPositionFrom(getTargetView(), viewLocation);
         int[] destinyViewLocation = new int[LENGTH_LOCATION_ARRAY];
-        getLeftPositionFrom(destinyView, destinyViewLocation);
-        objectAnimatorY = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, 0, -(viewLocation[Y] - destinyViewLocation[Y]));
+        getLeftPositionFrom(getDestinyView(), destinyViewLocation);
+        objectAnimatorY = ObjectAnimator.ofFloat(getTargetView(), View.TRANSLATION_Y, 0, -(viewLocation[Y] - destinyViewLocation[Y]));
         objectAnimatorY.setDuration(DURATION);
         objectAnimatorY.setInterpolator(new LinearInterpolator());
-        objectAnimatorX = ObjectAnimator.ofFloat(view, View.TRANSLATION_X, 0, -(viewLocation[X] - destinyViewLocation[X]));
+        objectAnimatorX = ObjectAnimator.ofFloat(getTargetView(), View.TRANSLATION_X, 0, -(viewLocation[X] - destinyViewLocation[X]));
         objectAnimatorX.setDuration(DURATION);
         objectAnimatorX.setInterpolator(new LinearInterpolator());
     }

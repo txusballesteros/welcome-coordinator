@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<com.redbooth.WelcomePageLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ff0000">
@@ -13,6 +14,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="80dp"
         android:textSize="30dp"
-        android:text="Welcome Page 1" />
+        android:text="Welcome Page 1"
+        app:view_behavior=".AnimationLaunch" />
 
-</RelativeLayout>
+</com.redbooth.WelcomePageLayout>

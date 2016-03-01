@@ -19,7 +19,7 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     private WelcomeCoordinatorTouchController touchController;
     private WelcomeCoordinatorPageInflater pageInflater;
     private FrameLayout mainContentView;
-    private List<WelcomePageBehavior> welcomePageBehaviorAnimations = new ArrayList<>();
+    private List<WelcomePageBehavior> behaviors = new ArrayList<>();
 
     public WelcomeCoordinatorLayout(Context context) {
         super(context);
@@ -36,8 +36,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         initializeView();
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @SuppressWarnings("unused")
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public WelcomeCoordinatorLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initializeView();
@@ -46,9 +46,22 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     public void addPage(@LayoutRes int... layoutResourceIds) {
         for (int layoutResourceId : layoutResourceIds) {
             final View pageView = pageInflater.inflate(layoutResourceId);
+            extractBehaviors(pageView);
             mainContentView.addView(pageView);
         }
         requestLayout();
+    }
+
+    private void extractBehaviors(View view) {
+        if (view instanceof WelcomePageLayout) {
+            final WelcomePageLayout pageLayout = (WelcomePageLayout)view;
+            for (int index = 0; index < pageLayout.getChildCount(); index++) {
+                List<WelcomePageBehavior> behaviors = pageLayout.getBehaviors(this);
+                if (!behaviors.isEmpty()) {
+                    this.behaviors.addAll(behaviors);
+                }
+            }
+        }
     }
 
     protected int getNumOfPages() {
@@ -69,7 +82,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     }
 
     public void addBehavior(WelcomePageBehavior welcomePageBehavior) {
-        welcomePageBehaviorAnimations.add(welcomePageBehavior);
+        welcomePageBehavior.onConfigure();
+        behaviors.add(welcomePageBehavior);
     }
 
     private void buildMainContentView() {
@@ -97,7 +111,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         int pageWidth = (coordinatorWidth * (getNumOfPages() - position));
         int pageMarginLeft = (coordinatorWidth * position);
         int originalHeight = pageView.getLayoutParams().height;
-        FrameLayout.LayoutParams layoutParams = new LayoutParams(pageWidth, originalHeight);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout
+                .LayoutParams(pageWidth, originalHeight);
         layoutParams.setMargins(pageMarginLeft, WITHOUT_MARGIN, WITHOUT_MARGIN, WITHOUT_MARGIN);
         pageView.setLayoutParams(layoutParams);
     }
@@ -112,18 +127,18 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     }
 
     public void notifyProgressScroll(float progress) {
-        for (WelcomePageBehavior welcomePageBehavior : welcomePageBehaviorAnimations) {
+        for (WelcomePageBehavior welcomePageBehavior : behaviors) {
             welcomePageBehavior.setCurrentPlayTime(progress);
         }
     }
 
     public void configureBehaviors() {
-        for (WelcomePageBehavior welcomePageBehavior : welcomePageBehaviorAnimations) {
-            welcomePageBehavior.configure();
+        for (WelcomePageBehavior welcomePageBehavior : behaviors) {
+            welcomePageBehavior.onConfigure();
         }
     }
 
     public void clearBehaviors() {
-        welcomePageBehaviorAnimations.clear();
+        behaviors.clear();
     }
 }
