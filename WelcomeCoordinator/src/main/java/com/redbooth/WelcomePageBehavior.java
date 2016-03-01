@@ -16,10 +16,18 @@ public abstract class WelcomePageBehavior {
 
     public static final View NON_DESTINY = null;
     protected WelcomeCoordinatorLayout coordinatorLayout;
-    protected View targetView;
-    protected View destinyView;
+    private View targetView;
+    private View destinyView;
     private Context context;
     private AttributeSet attributes;
+
+    protected View getTargetView() {
+        return targetView;
+    }
+
+    protected View getDestinyView() {
+        return destinyView;
+    }
 
     void setCoordinator(WelcomeCoordinatorLayout coordinator) {
         this.coordinatorLayout = coordinator;

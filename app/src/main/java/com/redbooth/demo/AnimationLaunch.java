@@ -20,10 +20,10 @@ public class AnimationLaunch extends WelcomePageBehavior {
 
     @Override
     protected void onConfigure() {
-        objectAnimatorY = ObjectAnimator.ofFloat(targetView, View.TRANSLATION_Y, 0, -targetView.getTop() - targetView.getHeight());
+        objectAnimatorY = ObjectAnimator.ofFloat(getTargetView(), View.TRANSLATION_Y, 0, -getTargetView().getTop() - getTargetView().getHeight());
         objectAnimatorY.setDuration(DURATION);
         objectAnimatorY.setInterpolator(new LinearInterpolator());
-        objectAnimatorX = ObjectAnimator.ofFloat(targetView, View.TRANSLATION_X, 0, coordinatorLayout.getWidth());
+        objectAnimatorX = ObjectAnimator.ofFloat(getTargetView(), View.TRANSLATION_X, 0, coordinatorLayout.getWidth());
         objectAnimatorX.setDuration(DURATION);
         objectAnimatorX.setInterpolator(new LinearInterpolator());
     }

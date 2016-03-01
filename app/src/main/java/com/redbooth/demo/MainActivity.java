@@ -20,9 +20,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializePages() {
-        coordinatorLayout.addPage(R.layout.welcome_page_1);
-        coordinatorLayout.addPage(R.layout.welcome_page_2);
-        coordinatorLayout.addPage(R.layout.welcome_page_3);
-        coordinatorLayout.addPage(R.layout.welcome_page_4);
+        coordinatorLayout.addPage(R.layout.welcome_page_1,
+                                  R.layout.welcome_page_2,
+                                  R.layout.welcome_page_3,
+                                  R.layout.welcome_page_4);
     }
 }

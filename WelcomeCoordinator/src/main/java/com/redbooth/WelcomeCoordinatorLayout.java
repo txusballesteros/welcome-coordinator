@@ -7,6 +7,7 @@ import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 
@@ -42,10 +43,12 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         initializeView();
     }
 
-    public void addPage(@LayoutRes int layoutResourceId) {
-        final View pageView = pageInflater.inflate(layoutResourceId);
-        extractBehaviors(pageView);
-        mainContentView.addView(pageView);
+    public void addPage(@LayoutRes int... layoutResourceIds) {
+        for (int layoutResourceId : layoutResourceIds) {
+            final View pageView = pageInflater.inflate(layoutResourceId);
+            extractBehaviors(pageView);
+            mainContentView.addView(pageView);
+        }
         requestLayout();
     }
 
@@ -127,5 +130,15 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         for (WelcomePageBehavior welcomePageBehavior : behaviors) {
             welcomePageBehavior.setCurrentPlayTime(progress);
         }
+    }
+
+    public void configureBehaviors() {
+        for (WelcomePageBehavior welcomePageBehavior : behaviors) {
+            welcomePageBehavior.onConfigure();
+        }
+    }
+
+    public void clearBehaviors() {
+        behaviors.clear();
     }
 }

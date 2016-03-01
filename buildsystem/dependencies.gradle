@@ -8,7 +8,7 @@ ext {
     //Android
     androidApplicationId = "com.redbooth"
     androidBuildToolsVersion = "23.0.2"
-    androidMinSdkVersion = 11
+    androidMinSdkVersion = 14
     androidTargetSdkVersion = 23
     androidCompileSdkVersion = 23
     androidVersionCode = 1
