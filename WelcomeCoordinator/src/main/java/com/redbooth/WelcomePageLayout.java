@@ -72,10 +72,16 @@ public class WelcomePageLayout extends RelativeLayout {
     }
 
     public static class LayoutParams extends RelativeLayout.LayoutParams {
+        public final static int NO_DESTINY_VIEW = -1;
+        private int destinyViewId = NO_DESTINY_VIEW;
         private WelcomePageBehavior behavior;
 
         public WelcomePageBehavior getBehavior() {
             return behavior;
+        }
+
+        public int getDestinyViewId() {
+            return destinyViewId;
         }
 
         public LayoutParams(int width, int height) {
@@ -101,6 +107,10 @@ public class WelcomePageLayout extends RelativeLayout {
             if (attributes.hasValue(R.styleable.WelcomePageLayout_LayoutParams_view_behavior)) {
                 behavior = parseBehavior(context, attrs, attributes
                         .getString(R.styleable.WelcomePageLayout_LayoutParams_view_behavior));
+            }
+            if (attributes.hasValue(R.styleable.WelcomePageLayout_LayoutParams_destiny)) {
+                destinyViewId = attributes
+                        .getResourceId(R.styleable.WelcomePageLayout_LayoutParams_destiny, NO_DESTINY_VIEW);
             }
             attributes.recycle();
         }
