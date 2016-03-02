@@ -90,6 +90,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         mainContentView = new FrameLayout(this.getContext());
         mainContentView.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.MATCH_PARENT));
+        mainContentView.setClipToPadding(false);
+        mainContentView.setClipChildren(false);
     }
 
     private void attachMainContentView() {
@@ -108,16 +110,12 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
 
     private void configurePageLayout(ViewGroup pageView, int position) {
         int coordinatorWidth = getMeasuredWidth();
-        int pageWidth = (coordinatorWidth * (getNumOfPages() - position));
-        int pagePadding = (coordinatorWidth * ((getNumOfPages() - 1) - position));
         int pageMarginLeft = (coordinatorWidth * position);
         int originalHeight = pageView.getLayoutParams().height;
-        pageView.setPadding(WITHOUT_PADDING, WITHOUT_PADDING, pagePadding, WITHOUT_PADDING);
         FrameLayout.LayoutParams layoutParams = new FrameLayout
-                .LayoutParams(pageWidth, originalHeight);
+                .LayoutParams(coordinatorWidth, originalHeight);
         layoutParams.setMargins(pageMarginLeft, WITHOUT_MARGIN, WITHOUT_MARGIN, WITHOUT_MARGIN);
         pageView.setLayoutParams(layoutParams);
-        pageView.setClipToPadding(false);
     }
 
     @Override
