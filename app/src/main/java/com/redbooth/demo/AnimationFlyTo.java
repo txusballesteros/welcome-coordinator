@@ -1,10 +1,11 @@
 package com.redbooth.demo;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.redbooth.WelcomeCoordinatorLayout;
 import com.redbooth.WelcomePageBehavior;
@@ -24,23 +25,26 @@ public class AnimationFlyTo extends WelcomePageBehavior {
     @Override
     protected void onConfigure() {
         int[] viewLocation = new int[LENGTH_LOCATION_ARRAY];
-        getLeftPositionFrom(getTargetView(), viewLocation);
+        View targetView = getTargetView();
+        getLeftPositionFrom(targetView, viewLocation);
         int[] destinyViewLocation = new int[LENGTH_LOCATION_ARRAY];
         getLeftPositionFrom(getDestinyView(), destinyViewLocation);
-        objectAnimatorY = ObjectAnimator.ofFloat(getTargetView(), View.TRANSLATION_Y, 0, -(viewLocation[Y] - destinyViewLocation[Y]));
+        objectAnimatorY = ObjectAnimator.ofFloat(targetView, View.TRANSLATION_Y, 0, -(viewLocation[Y] - destinyViewLocation[Y]));
         objectAnimatorY.setDuration(DURATION);
         objectAnimatorY.setInterpolator(new LinearInterpolator());
-        objectAnimatorX = ObjectAnimator.ofFloat(getTargetView(), View.TRANSLATION_X, 0, -(viewLocation[X] - destinyViewLocation[X]));
+        objectAnimatorX = ObjectAnimator.ofFloat(targetView, View.TRANSLATION_X, 0, -(viewLocation[X] - destinyViewLocation[X]));
         objectAnimatorX.setDuration(DURATION);
         objectAnimatorX.setInterpolator(new LinearInterpolator());
-        float scaleXFactor = 1f + ((float)getTargetView().getMeasuredWidth() / (float)getDestinyView().getMeasuredWidth());
-        float scaleYFactor = 1f + ((float)getTargetView().getMeasuredHeight() / (float)getDestinyView().getMeasuredHeight());
-        objectAnimatorScaleX = ObjectAnimator.ofFloat(getTargetView(), View.SCALE_X, scaleXFactor);
+        float scaleXFactor = ((float) getDestinyView().getMeasuredWidth() / (float) targetView.getMeasuredWidth());
+        objectAnimatorScaleX = ObjectAnimator.ofFloat(targetView, View.SCALE_X, scaleXFactor);
         objectAnimatorScaleX.setDuration(DURATION);
         objectAnimatorScaleX.setInterpolator(new LinearInterpolator());
-        objectAnimatorScaleY = ObjectAnimator.ofFloat(getTargetView(), View.SCALE_Y, scaleYFactor);
+        targetView.setPivotX(0);
+        float scaleYFactor = ((float) getDestinyView().getMeasuredHeight() / (float) targetView.getMeasuredHeight());
+        objectAnimatorScaleY = ObjectAnimator.ofFloat(targetView, View.SCALE_Y, scaleYFactor);
         objectAnimatorScaleY.setDuration(DURATION);
         objectAnimatorScaleY.setInterpolator(new LinearInterpolator());
+        targetView.setPivotY(0);
     }
 
     private void getLeftPositionFrom(View view, int[] location) {

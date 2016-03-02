@@ -42,12 +42,12 @@
 
     <ImageView
         android:id="@+id/star"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_star_36dp"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:src="@drawable/ic_star_72dp"
         android:layout_alignRight="@+id/card2"
         android:layout_alignTop="@+id/card2"
-        android:layout_margin="8dp"
+        android:background="@color/avatar5"
         app:view_behavior=".AnimationFlyTo"
         app:destiny="@+id/android_destiny"/>
 
