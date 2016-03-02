@@ -16,12 +16,12 @@
         android:id="@+id/card1"
         android:layout_width="150dp"
         android:layout_height="130dp"
-        android:layout_toLeftOf="@id/avatar1"
+        android:layout_toLeftOf="@+id/avatar1_page2"
         android:layout_marginTop="16dp"
         android:background="@color/white" />
 
     <View
-        android:id="@+id/avatar1"
+        android:id="@+id/avatar1_page2"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="@drawable/avatar_5_background"
@@ -51,7 +51,7 @@
         app:destiny="@+id/android_destiny"/>
 
     <View
-        android:id="@+id/avatar2"
+        android:id="@+id/avatar2_page2"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="@drawable/avatar_3_background"

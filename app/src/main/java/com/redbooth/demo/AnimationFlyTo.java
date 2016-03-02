@@ -3,7 +3,6 @@ package com.redbooth.demo;
 import android.animation.ObjectAnimator;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
 import com.redbooth.WelcomeCoordinatorLayout;
@@ -20,11 +19,18 @@ public class AnimationFlyTo extends WelcomePageBehavior {
     private ObjectAnimator objectAnimatorX;
     private ObjectAnimator objectAnimatorScaleX;
     private ObjectAnimator objectAnimatorScaleY;
+    private ObjectAnimator objectAnimatorRotation;
 
     @Override
     protected void onConfigure() {
-        int[] viewLocation = new int[LENGTH_LOCATION_ARRAY];
+        configureTranslation();
+        configureScale();
+        configureRotation();
+    }
+
+    private void configureTranslation() {
         View targetView = getTargetView();
+        int[] viewLocation = new int[LENGTH_LOCATION_ARRAY];
         getLeftPositionFrom(targetView, viewLocation);
         int[] destinyViewLocation = new int[LENGTH_LOCATION_ARRAY];
         getLeftPositionFrom(getDestinyView(), destinyViewLocation);
@@ -34,16 +40,25 @@ public class AnimationFlyTo extends WelcomePageBehavior {
         objectAnimatorX = ObjectAnimator.ofFloat(targetView, View.TRANSLATION_X, 0, -(viewLocation[X] - destinyViewLocation[X]));
         objectAnimatorX.setInterpolator(new LinearInterpolator());
         objectAnimatorX.setDuration(DURATION);
+    }
+
+    private void configureScale() {
+        View targetView = getTargetView();
         float scaleXFactor = ((float) getDestinyView().getMeasuredWidth() / (float) targetView.getMeasuredWidth());
         objectAnimatorScaleX = ObjectAnimator.ofFloat(targetView, View.SCALE_X, scaleXFactor);
         objectAnimatorScaleX.setDuration(DURATION);
         objectAnimatorScaleX.setInterpolator(new LinearInterpolator());
-        targetView.setPivotX(0);
         float scaleYFactor = ((float) getDestinyView().getMeasuredHeight() / (float) targetView.getMeasuredHeight());
         objectAnimatorScaleY = ObjectAnimator.ofFloat(targetView, View.SCALE_Y, scaleYFactor);
         objectAnimatorScaleY.setDuration(DURATION);
         objectAnimatorScaleY.setInterpolator(new LinearInterpolator());
-        targetView.setPivotY(0);
+    }
+
+    private void configureRotation() {
+        View targetView = getTargetView();
+        objectAnimatorRotation = ObjectAnimator.ofFloat(targetView, View.ROTATION, -360/5);
+        objectAnimatorRotation.setDuration(DURATION);
+        objectAnimatorRotation.setInterpolator(new LinearInterpolator());
     }
 
     private void getLeftPositionFrom(View view, int[] location) {
@@ -63,22 +78,21 @@ public class AnimationFlyTo extends WelcomePageBehavior {
     @Override
     public void setCurrentPlayTime(float progress) {
         if (progress <= INIT_TIME) {
-            objectAnimatorY.setCurrentPlayTime(0);
-            objectAnimatorX.setCurrentPlayTime(0);
-            objectAnimatorScaleX.setCurrentPlayTime(0);
-            objectAnimatorScaleY.setCurrentPlayTime(0);
+            setCurrentTimeInAllAnimators(0);
         } else if (progress > INIT_TIME
                 && progress <= FINAL_TIME) {
             long playTime = (long) ((progress - INIT_TIME) * DURATION);
-            objectAnimatorY.setCurrentPlayTime(playTime);
-            objectAnimatorX.setCurrentPlayTime(playTime);
-            objectAnimatorScaleX.setCurrentPlayTime(playTime);
-            objectAnimatorScaleY.setCurrentPlayTime(playTime);
+            setCurrentTimeInAllAnimators(playTime);
         } else {
-            objectAnimatorY.setCurrentPlayTime(DURATION);
-            objectAnimatorX.setCurrentPlayTime(DURATION);
-            objectAnimatorScaleX.setCurrentPlayTime(DURATION);
-            objectAnimatorScaleY.setCurrentPlayTime(DURATION);
+            setCurrentTimeInAllAnimators(DURATION);
         }
+    }
+
+    private void setCurrentTimeInAllAnimators(long playTime) {
+        objectAnimatorY.setCurrentPlayTime(playTime);
+        objectAnimatorX.setCurrentPlayTime(playTime);
+        objectAnimatorScaleX.setCurrentPlayTime(playTime);
+        objectAnimatorScaleY.setCurrentPlayTime(playTime);
+        objectAnimatorRotation.setCurrentPlayTime(playTime);
     }
 }

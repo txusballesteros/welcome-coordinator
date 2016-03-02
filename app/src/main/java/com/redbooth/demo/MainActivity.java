@@ -5,7 +5,6 @@ import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.animation.RotateAnimation;
 
 import com.redbooth.WelcomeCoordinatorLayout;
 import com.redbooth.demo.animators.RocketAvatarsAnimator;
@@ -52,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         coordinatorLayout.addPage(R.layout.welcome_page_1,
-                R.layout.welcome_page_2,
-                R.layout.welcome_page_3,
-                R.layout.welcome_page_4);
+                                  R.layout.welcome_page_2,
+                                  R.layout.welcome_page_3,
+                                  R.layout.welcome_page_4);
     }
 }

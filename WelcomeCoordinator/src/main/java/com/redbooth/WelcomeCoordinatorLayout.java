@@ -46,7 +46,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     }
 
     public void addPage(@LayoutRes int... layoutResourceIds) {
-        for (int layoutResourceId : layoutResourceIds) {
+        for (int i = layoutResourceIds.length - 1; i >= 0; i--) {
+            int layoutResourceId = layoutResourceIds[i];
             final View pageView = pageInflater.inflate(layoutResourceId);
             extractBehaviors(pageView);
             mainContentView.addView(pageView);
@@ -103,14 +104,16 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         for (int index = 0; index < getNumOfPages(); index++) {
-            configurePageLayout((ViewGroup)mainContentView.getChildAt(index), index);
+            ViewGroup childAt = (ViewGroup) mainContentView.getChildAt(index);
+            configurePageLayout(childAt, index);
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     private void configurePageLayout(ViewGroup pageView, int position) {
         int coordinatorWidth = getMeasuredWidth();
-        int pageMarginLeft = (coordinatorWidth * position);
+        int reversePosition = getNumOfPages() - 1 - position;
+        int pageMarginLeft = (coordinatorWidth * reversePosition);
         int originalHeight = pageView.getLayoutParams().height;
         FrameLayout.LayoutParams layoutParams = new FrameLayout
                 .LayoutParams(coordinatorWidth, originalHeight);
