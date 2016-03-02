@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="white">#ffffffff</color>
     <color name="page1">#ff68B7AB</color>
     <color name="page2">#ff5088B8</color>
     <color name="page3">#ff61A3B6</color>
@@ -14,4 +15,6 @@
     <color name="avatar2">#c6b9e7</color>
     <color name="avatar3">#f8e71d</color>
     <color name="avatar4">#65aa01</color>
+    <color name="avatar5">#4ee4c1</color>
+
 </resources>

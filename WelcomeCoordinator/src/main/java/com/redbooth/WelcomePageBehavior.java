@@ -5,8 +5,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 
 public abstract class WelcomePageBehavior {
-    static final Class<?>[] CONSTRUCTOR_PARAMS = new Class<?>[] {};
-
     private final static int NO_DESTINY_VIEW = -1;
     protected WelcomeCoordinatorLayout coordinatorLayout;
     private View targetView;

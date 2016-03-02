@@ -1,5 +1,7 @@
 package com.redbooth.demo;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -16,6 +18,8 @@ public class AnimationFlyTo extends WelcomePageBehavior {
     public static final int LENGTH_LOCATION_ARRAY = 2;
     private ObjectAnimator objectAnimatorY;
     private ObjectAnimator objectAnimatorX;
+    private ObjectAnimator objectAnimatorScaleX;
+    private ObjectAnimator objectAnimatorScaleY;
 
     @Override
     protected void onConfigure() {
@@ -29,6 +33,14 @@ public class AnimationFlyTo extends WelcomePageBehavior {
         objectAnimatorX = ObjectAnimator.ofFloat(getTargetView(), View.TRANSLATION_X, 0, -(viewLocation[X] - destinyViewLocation[X]));
         objectAnimatorX.setDuration(DURATION);
         objectAnimatorX.setInterpolator(new LinearInterpolator());
+        float scaleXFactor = 1f + ((float)getTargetView().getMeasuredWidth() / (float)getDestinyView().getMeasuredWidth());
+        float scaleYFactor = 1f + ((float)getTargetView().getMeasuredHeight() / (float)getDestinyView().getMeasuredHeight());
+        objectAnimatorScaleX = ObjectAnimator.ofFloat(getTargetView(), View.SCALE_X, scaleXFactor);
+        objectAnimatorScaleX.setDuration(DURATION);
+        objectAnimatorScaleX.setInterpolator(new LinearInterpolator());
+        objectAnimatorScaleY = ObjectAnimator.ofFloat(getTargetView(), View.SCALE_Y, scaleYFactor);
+        objectAnimatorScaleY.setDuration(DURATION);
+        objectAnimatorScaleY.setInterpolator(new LinearInterpolator());
     }
 
     private void getLeftPositionFrom(View view, int[] location) {
@@ -50,14 +62,20 @@ public class AnimationFlyTo extends WelcomePageBehavior {
         if (progress <= INIT_TIME) {
             objectAnimatorY.setCurrentPlayTime(0);
             objectAnimatorX.setCurrentPlayTime(0);
+            objectAnimatorScaleX.setCurrentPlayTime(0);
+            objectAnimatorScaleY.setCurrentPlayTime(0);
         } else if (progress > INIT_TIME
                 && progress <= FINAL_TIME) {
             long playTime = (long) ((progress - INIT_TIME) * DURATION);
             objectAnimatorY.setCurrentPlayTime(playTime);
             objectAnimatorX.setCurrentPlayTime(playTime);
+            objectAnimatorScaleX.setCurrentPlayTime(playTime);
+            objectAnimatorScaleY.setCurrentPlayTime(playTime);
         } else {
             objectAnimatorY.setCurrentPlayTime(DURATION);
             objectAnimatorX.setCurrentPlayTime(DURATION);
+            objectAnimatorScaleX.setCurrentPlayTime(DURATION);
+            objectAnimatorScaleY.setCurrentPlayTime(DURATION);
         }
     }
 }

@@ -18,9 +18,8 @@
 
         <RelativeLayout
             android:layout_width="150dp"
-            android:layout_height="300dp"
+            android:layout_height="250dp"
             android:background="@color/rocket"
-            android:src="@drawable/ic_airplanemode_150dp"
             android:paddingTop="16dp"
             android:clipToPadding="false">
 
@@ -67,14 +66,15 @@
     </LinearLayout>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rocket"
-        android:gravity="center"
-        android:textSize="30dp"
-        android:textColor="#ffffff"
-        android:layout_marginTop="16dp"
-        android:fontFamily="sans-serif-light"
+        style="@style/text_title"
+        android:id="@+id/title"
+        android:layout_above="@+id/subtitle"
         android:text="Get more done faster"/>
+
+    <TextView
+        style="@style/text_subtitle"
+        android:id="@+id/subtitle"
+        android:layout_alignParentBottom="true"
+        android:text="Easily organize projects \nand delegate work."/>
 
 </com.redbooth.WelcomePageLayout>

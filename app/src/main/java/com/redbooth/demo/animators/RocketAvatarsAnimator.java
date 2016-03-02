@@ -27,6 +27,7 @@ public class RocketAvatarsAnimator {
         Animator avatar3Animator = getAnimator(avatar3);
         Animator avatar4Animator = getAnimator(avatar4);
         animator = new AnimatorSet();
+        animator.setStartDelay(1000);
         animator.play(avatar3Animator).after(avatar4Animator);
         animator.play(avatar2Animator).after(avatar3Animator);
         animator.play(avatar1Animator).after(avatar2Animator);

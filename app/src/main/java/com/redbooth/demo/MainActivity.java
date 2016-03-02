@@ -26,10 +26,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializePages() {
-        coordinatorLayout.addPage(R.layout.welcome_page_1,
-                R.layout.welcome_page_2,
-                R.layout.welcome_page_3,
-                R.layout.welcome_page_4);
         final ValueAnimator backgroundAnimator = ValueAnimator.ofObject(new ArgbEvaluator(),
                         0xff68B7AB, 0xff5088B8, 0xff61A3B6, 0xffffffff);
         backgroundAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -38,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
                 coordinatorLayout.setBackgroundColor((int)animation.getAnimatedValue());
             }
         });
-        final View androidSpin = findViewById(R.id.android_spin);
         coordinatorLayout.setOnPageScrollListener(new WelcomeCoordinatorLayout.OnPageScrollListener() {
             @Override
             public void onScrollPage(View v, float progress, float maximum) {
@@ -53,12 +48,12 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(View v, int pageSelected) {
                 if (pageSelected == 0) {
                     new RocketAvatarsAnimator(coordinatorLayout).play();
-                } else if (pageSelected == 3) {
-                    RotateAnimation animation = new RotateAnimation(0, 360, androidSpin.getWidth()/2, androidSpin.getHeight()/2);
-                    animation.setDuration(1000);
-                    androidSpin.startAnimation(animation);
                 }
             }
         });
+        coordinatorLayout.addPage(R.layout.welcome_page_1,
+                R.layout.welcome_page_2,
+                R.layout.welcome_page_3,
+                R.layout.welcome_page_4);
     }
 }
