@@ -50,6 +50,9 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
             mainContentView.addView(pageView);
         }
         requestLayout();
+        if (onPageScrollListener != null) {
+            onPageScrollListener.onPageSelected(this, 0);
+        }
     }
 
     private void extractBehaviors(View view) {
@@ -79,11 +82,6 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         pageInflater = new WelcomeCoordinatorPageInflater(this);
         buildMainContentView();
         attachMainContentView();
-    }
-
-    public void addBehavior(WelcomePageBehavior welcomePageBehavior) {
-        welcomePageBehavior.onConfigure();
-        behaviors.add(welcomePageBehavior);
     }
 
     private void buildMainContentView() {
