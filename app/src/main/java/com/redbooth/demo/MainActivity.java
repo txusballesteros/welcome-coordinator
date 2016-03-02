@@ -38,21 +38,26 @@ public class MainActivity extends AppCompatActivity {
             public void onScrollPage(View v, float progress, float maximum) {
                 if (!animationReady) {
                     animationReady = true;
-                    backgroundAnimator.setDuration((long)maximum);
+                    backgroundAnimator.setDuration((long) maximum);
                 }
-                backgroundAnimator.setCurrentPlayTime((long)progress);
+                backgroundAnimator.setCurrentPlayTime((long) progress);
             }
 
             @Override
             public void onPageSelected(View v, int pageSelected) {
-                if (pageSelected == 0) {
-                    new RocketAvatarsAnimator(coordinatorLayout).play();
+                switch (pageSelected) {
+                    case 0:
+                        new RocketAvatarsAnimator(coordinatorLayout).play();
+                        break;
+                    case 2:
+                        new RocketAvatarsAnimator(coordinatorLayout).play();
+                        break;
                 }
             }
         });
         coordinatorLayout.addPage(R.layout.welcome_page_1,
-                                  R.layout.welcome_page_2,
-                                  R.layout.welcome_page_3,
-                                  R.layout.welcome_page_4);
+                R.layout.welcome_page_2,
+                R.layout.welcome_page_3,
+                R.layout.welcome_page_4);
     }
 }
