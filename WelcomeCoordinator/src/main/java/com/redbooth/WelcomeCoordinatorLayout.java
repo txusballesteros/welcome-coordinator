@@ -7,6 +7,7 @@ import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     public static final int WITHOUT_MARGIN = 0;
+    public static final int WITHOUT_PADDING = 0;
     private WelcomeCoordinatorTouchController touchController;
     private WelcomeCoordinatorPageInflater pageInflater;
     private FrameLayout mainContentView;
@@ -101,20 +103,23 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         for (int index = 0; index < getNumOfPages(); index++) {
-            configurePageLayout(mainContentView.getChildAt(index), index);
+            configurePageLayout((ViewGroup)mainContentView.getChildAt(index), index);
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-    private void configurePageLayout(View pageView, int position) {
+    private void configurePageLayout(ViewGroup pageView, int position) {
         int coordinatorWidth = getMeasuredWidth();
         int pageWidth = (coordinatorWidth * (getNumOfPages() - position));
+        int pagePadding = (coordinatorWidth * ((getNumOfPages() - 1) - position));
         int pageMarginLeft = (coordinatorWidth * position);
         int originalHeight = pageView.getLayoutParams().height;
+        pageView.setPadding(WITHOUT_PADDING, WITHOUT_PADDING, pagePadding, WITHOUT_PADDING);
         FrameLayout.LayoutParams layoutParams = new FrameLayout
                 .LayoutParams(pageWidth, originalHeight);
         layoutParams.setMargins(pageMarginLeft, WITHOUT_MARGIN, WITHOUT_MARGIN, WITHOUT_MARGIN);
         pageView.setLayoutParams(layoutParams);
+        pageView.setClipToPadding(false);
     }
 
     @Override

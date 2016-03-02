@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.animation.RotateAnimation;
 
 import com.redbooth.WelcomeCoordinatorLayout;
+import com.redbooth.demo.animators.RocketAvatarsAnimator;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -50,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(View v, int pageSelected) {
-                if (pageSelected == 3) {
+                if (pageSelected == 0) {
+                    new RocketAvatarsAnimator(coordinatorLayout).play();
+                } else if (pageSelected == 3) {
                     RotateAnimation animation = new RotateAnimation(0, 360, androidSpin.getWidth()/2, androidSpin.getHeight()/2);
                     animation.setDuration(1000);
                     androidSpin.startAnimation(animation);
