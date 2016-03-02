@@ -9,6 +9,7 @@ import android.view.View;
 import com.redbooth.WelcomeCoordinatorLayout;
 import com.redbooth.demo.animators.ChatAvatarsAnimator;
 import com.redbooth.demo.animators.RocketAvatarsAnimator;
+import com.redbooth.demo.animators.RocketFlightAwayAnimator;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -52,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 1:
                         new ChatAvatarsAnimator(coordinatorLayout).play();
+                        break;
+                    case 3:
+                        new RocketFlightAwayAnimator(coordinatorLayout).play();
                         break;
                 }
             }

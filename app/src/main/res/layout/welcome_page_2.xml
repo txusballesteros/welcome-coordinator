@@ -48,7 +48,7 @@
         android:src="@drawable/ic_star_72dp"
         android:layout_alignRight="@+id/card2_page2"
         android:layout_alignTop="@+id/card2_page2"
-        app:view_behavior=".AnimationFlyTo"
+        app:view_behavior=".AnimationFlightTo"
         app:destiny="@+id/android_destiny"
         android:visibility="invisible"/>
 
