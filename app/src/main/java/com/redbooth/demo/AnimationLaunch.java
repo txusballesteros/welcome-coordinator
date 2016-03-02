@@ -1,9 +1,6 @@
 package com.redbooth.demo;
 
 import android.animation.ObjectAnimator;
-import android.content.Context;
-import android.support.annotation.NonNull;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
@@ -13,10 +10,6 @@ public class AnimationLaunch extends WelcomePageBehavior {
     public static final long DURATION = 10000L;
     private ObjectAnimator objectAnimatorY;
     private ObjectAnimator objectAnimatorX;
-
-    public AnimationLaunch(@NonNull Context context, @NonNull AttributeSet attributes) {
-        super(context, attributes);
-    }
 
     @Override
     protected void onConfigure() {
