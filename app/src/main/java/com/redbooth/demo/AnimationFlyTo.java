@@ -2,10 +2,9 @@ package com.redbooth.demo;
 
 import android.animation.ObjectAnimator;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import com.redbooth.WelcomeCoordinatorLayout;
 import com.redbooth.WelcomePageBehavior;
@@ -30,11 +29,11 @@ public class AnimationFlyTo extends WelcomePageBehavior {
         int[] destinyViewLocation = new int[LENGTH_LOCATION_ARRAY];
         getLeftPositionFrom(getDestinyView(), destinyViewLocation);
         objectAnimatorY = ObjectAnimator.ofFloat(targetView, View.TRANSLATION_Y, 0, -(viewLocation[Y] - destinyViewLocation[Y]));
+        objectAnimatorY.setInterpolator(new AccelerateInterpolator());
         objectAnimatorY.setDuration(DURATION);
-        objectAnimatorY.setInterpolator(new LinearInterpolator());
         objectAnimatorX = ObjectAnimator.ofFloat(targetView, View.TRANSLATION_X, 0, -(viewLocation[X] - destinyViewLocation[X]));
-        objectAnimatorX.setDuration(DURATION);
         objectAnimatorX.setInterpolator(new LinearInterpolator());
+        objectAnimatorX.setDuration(DURATION);
         float scaleXFactor = ((float) getDestinyView().getMeasuredWidth() / (float) targetView.getMeasuredWidth());
         objectAnimatorScaleX = ObjectAnimator.ofFloat(targetView, View.SCALE_X, scaleXFactor);
         objectAnimatorScaleX.setDuration(DURATION);
