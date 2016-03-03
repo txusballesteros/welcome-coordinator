@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
+import com.redbooth.WelcomeCoordinatorLayout;
 import com.redbooth.WelcomePageBehavior;
 
 public class AnimationLaunch extends WelcomePageBehavior {
@@ -22,9 +23,9 @@ public class AnimationLaunch extends WelcomePageBehavior {
     }
 
     @Override
-    public void setCurrentPlayTime(float progress) {
-        if (progress < 1) {
-            long playTime = (long) (progress * DURATION);
+    protected void onPlaytimeChange(WelcomeCoordinatorLayout coordinator, float currentPlaytime) {
+        if (currentPlaytime < 1) {
+            long playTime = (long) (currentPlaytime * DURATION);
             objectAnimatorY.setCurrentPlayTime(playTime);
             objectAnimatorX.setCurrentPlayTime(playTime);
         } else {

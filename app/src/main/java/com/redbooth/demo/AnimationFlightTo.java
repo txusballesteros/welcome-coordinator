@@ -76,12 +76,12 @@ public class AnimationFlightTo extends WelcomePageBehavior {
     }
 
     @Override
-    public void setCurrentPlayTime(float progress) {
-        if (progress <= INIT_TIME) {
+    protected void onPlaytimeChange(WelcomeCoordinatorLayout coordinator, float currentPlaytime) {
+        if (currentPlaytime <= INIT_TIME) {
             setCurrentTimeInAllAnimators(0);
-        } else if (progress > INIT_TIME
-                && progress <= FINAL_TIME) {
-            long playTime = (long) ((progress - INIT_TIME) * DURATION);
+        } else if (currentPlaytime > INIT_TIME
+                && currentPlaytime <= FINAL_TIME) {
+            long playTime = (long) ((currentPlaytime - INIT_TIME) * DURATION);
             setCurrentTimeInAllAnimators(playTime);
         } else {
             setCurrentTimeInAllAnimators(DURATION);

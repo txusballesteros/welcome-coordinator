@@ -46,5 +46,6 @@ public abstract class WelcomePageBehavior {
 
     protected abstract void onConfigure();
 
-    public abstract void setCurrentPlayTime(float progress);
+    protected abstract void onPlaytimeChange(WelcomeCoordinatorLayout coordinator,
+                                             float currentPlaytime);
 }

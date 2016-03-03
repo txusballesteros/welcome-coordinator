@@ -70,7 +70,7 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         }
     }
 
-    protected int getNumOfPages() {
+    public int getNumOfPages() {
         int result = 0;
         if (mainContentView != null) {
             result = mainContentView.getChildCount();
@@ -132,7 +132,7 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
 
     public void notifyProgressScroll(float progress) {
         for (WelcomePageBehavior welcomePageBehavior : behaviors) {
-            welcomePageBehavior.setCurrentPlayTime(progress);
+            welcomePageBehavior.onPlaytimeChange(this, progress);
         }
     }
 
