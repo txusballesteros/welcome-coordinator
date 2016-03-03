@@ -11,6 +11,10 @@ public class AnimationFillWithColor extends WelcomePageBehavior {
     public static final long DURATION = 10000L;
     public static final int INIT_PLAY_TIME = 2;
     private ObjectAnimator objectAnimatorY;
+    
+    @Override
+    protected void onCreate(WelcomeCoordinatorLayout coordinator) {
+    }
 
     @Override
     protected void onConfigure() {
