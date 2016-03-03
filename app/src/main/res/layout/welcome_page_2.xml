@@ -67,7 +67,8 @@
         style="@style/text_title"
         android:id="@+id/title"
         android:layout_above="@+id/subtitle"
-        android:text="Speed feedback"/>
+        android:text="Speed feedback"
+        app:view_behavior=".ParallaxTitleBehaviour"/>
 
     <TextView
         style="@style/text_subtitle"

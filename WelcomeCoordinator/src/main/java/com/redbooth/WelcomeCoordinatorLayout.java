@@ -16,7 +16,6 @@ import java.util.List;
 
 public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     public static final int WITHOUT_MARGIN = 0;
-    public static final int WITHOUT_PADDING = 0;
     private WelcomeCoordinatorTouchController touchController;
     private WelcomeCoordinatorPageInflater pageInflater;
     private FrameLayout mainContentView;
@@ -49,25 +48,29 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         for (int i = layoutResourceIds.length - 1; i >= 0; i--) {
             int layoutResourceId = layoutResourceIds[i];
             final View pageView = pageInflater.inflate(layoutResourceId);
-            extractBehaviors(pageView);
+            final List<WelcomePageBehavior> pageBehaviors = extractPageBehaviors(pageView);
+            if (!pageBehaviors.isEmpty()) {
+                this.behaviors.addAll(pageBehaviors);
+            }
             mainContentView.addView(pageView);
         }
-        requestLayout();
         if (onPageScrollListener != null) {
             onPageScrollListener.onPageSelected(this, 0);
         }
+        requestLayout();
     }
 
-    private void extractBehaviors(View view) {
+    private List<WelcomePageBehavior> extractPageBehaviors(View view) {
+        List<WelcomePageBehavior> behaviors = new ArrayList<>();
         if (view instanceof WelcomePageLayout) {
             final WelcomePageLayout pageLayout = (WelcomePageLayout)view;
-            for (int index = 0; index < pageLayout.getChildCount(); index++) {
-                List<WelcomePageBehavior> behaviors = pageLayout.getBehaviors(this);
-                if (!behaviors.isEmpty()) {
-                    this.behaviors.addAll(behaviors);
-                }
+            final List<WelcomePageBehavior> pageBehaviors = pageLayout.getBehaviors(this);
+            if (!pageBehaviors.isEmpty()) {
+                behaviors.addAll(pageBehaviors);
             }
+
         }
+        return behaviors;
     }
 
     public int getNumOfPages() {

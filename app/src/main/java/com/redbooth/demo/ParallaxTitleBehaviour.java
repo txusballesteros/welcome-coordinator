@@ -6,7 +6,8 @@ import com.redbooth.WelcomePageBehavior;
 public class ParallaxTitleBehaviour extends WelcomePageBehavior {
     @Override
     protected void onCreate(WelcomeCoordinatorLayout coordinator) {
-
+        String a = "";
+        a += "";
     }
 
     @Override
