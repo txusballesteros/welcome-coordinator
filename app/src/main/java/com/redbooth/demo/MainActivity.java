@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializePages() {
         final ValueAnimator backgroundAnimator = ValueAnimator.ofObject(new ArgbEvaluator(),
-                        0xff68B7AB, 0xff5088B8, 0xff61A3B6, 0xffffffff);
+                        0xff68B7AB, 0xff5088B8, 0xff61A3B6, 0xff61A3B6);
         backgroundAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {

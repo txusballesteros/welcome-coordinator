@@ -8,6 +8,7 @@ import android.view.animation.LinearInterpolator;
 import com.redbooth.WelcomeCoordinatorLayout;
 import com.redbooth.WelcomePageBehavior;
 
+@SuppressWarnings("unused")
 public class AnimationFlightTo extends WelcomePageBehavior {
     public static final long DURATION = 10000L;
     public static final int INIT_TIME = 1;

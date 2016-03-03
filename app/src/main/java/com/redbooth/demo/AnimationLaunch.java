@@ -7,6 +7,7 @@ import android.view.animation.LinearInterpolator;
 import com.redbooth.WelcomeCoordinatorLayout;
 import com.redbooth.WelcomePageBehavior;
 
+@SuppressWarnings("unused")
 public class AnimationLaunch extends WelcomePageBehavior {
     public static final long DURATION = 10000L;
     private ObjectAnimator objectAnimatorY;
