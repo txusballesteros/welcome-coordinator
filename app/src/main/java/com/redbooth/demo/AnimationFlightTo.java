@@ -22,7 +22,7 @@ public class AnimationFlightTo extends WelcomePageBehavior {
     private ObjectAnimator objectAnimatorRotation;
 
     @Override
-    protected void onConfigure() {
+    protected void onCreate(WelcomeCoordinatorLayout coordinator) {
         configureTranslation();
         configureScale();
         configureRotation();
@@ -76,12 +76,12 @@ public class AnimationFlightTo extends WelcomePageBehavior {
     }
 
     @Override
-    protected void onPlaytimeChange(WelcomeCoordinatorLayout coordinator, float currentPlaytime) {
-        if (currentPlaytime <= INIT_TIME) {
+    protected void onPlaytimeChange(WelcomeCoordinatorLayout coordinator, float newPlaytime) {
+        if (newPlaytime <= INIT_TIME) {
             setCurrentTimeInAllAnimators(0);
-        } else if (currentPlaytime > INIT_TIME
-                && currentPlaytime <= FINAL_TIME) {
-            long playTime = (long) ((currentPlaytime - INIT_TIME) * DURATION);
+        } else if (newPlaytime > INIT_TIME
+                && newPlaytime <= FINAL_TIME) {
+            long playTime = (long) ((newPlaytime - INIT_TIME) * DURATION);
             setCurrentTimeInAllAnimators(playTime);
         } else {
             setCurrentTimeInAllAnimators(DURATION);

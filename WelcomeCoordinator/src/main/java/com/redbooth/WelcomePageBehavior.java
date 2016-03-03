@@ -30,11 +30,13 @@ public abstract class WelcomePageBehavior {
                 .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
-                        onConfigure();
+                        onCreate(coordinatorLayout);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                            coordinatorLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                            coordinatorLayout.getViewTreeObserver()
+                                    .removeOnGlobalLayoutListener(this);
                         } else {
-                            coordinatorLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                            coordinatorLayout.getViewTreeObserver()
+                                    .removeGlobalOnLayoutListener(this);
                         }
                     }
                 });
@@ -44,8 +46,8 @@ public abstract class WelcomePageBehavior {
         this.targetView = target;
     }
 
-    protected abstract void onConfigure();
+    protected abstract void onCreate(WelcomeCoordinatorLayout coordinator);
 
     protected abstract void onPlaytimeChange(WelcomeCoordinatorLayout coordinator,
-                                             float currentPlaytime);
+                                             float newPlaytime);
 }

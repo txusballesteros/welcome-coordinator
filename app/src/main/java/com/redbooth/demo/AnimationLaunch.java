@@ -13,7 +13,7 @@ public class AnimationLaunch extends WelcomePageBehavior {
     private ObjectAnimator objectAnimatorX;
 
     @Override
-    protected void onConfigure() {
+    protected void onCreate(WelcomeCoordinatorLayout coordinator) {
         objectAnimatorY = ObjectAnimator.ofFloat(getTargetView(), View.TRANSLATION_Y, 0, -getTargetView().getTop() - getTargetView().getHeight());
         objectAnimatorY.setDuration(DURATION);
         objectAnimatorY.setInterpolator(new LinearInterpolator());
@@ -23,9 +23,9 @@ public class AnimationLaunch extends WelcomePageBehavior {
     }
 
     @Override
-    protected void onPlaytimeChange(WelcomeCoordinatorLayout coordinator, float currentPlaytime) {
-        if (currentPlaytime < 1) {
-            long playTime = (long) (currentPlaytime * DURATION);
+    protected void onPlaytimeChange(WelcomeCoordinatorLayout coordinator, float newPlaytime) {
+        if (newPlaytime < 1) {
+            long playTime = (long) (newPlaytime * DURATION);
             objectAnimatorY.setCurrentPlayTime(playTime);
             objectAnimatorX.setCurrentPlayTime(playTime);
         } else {
