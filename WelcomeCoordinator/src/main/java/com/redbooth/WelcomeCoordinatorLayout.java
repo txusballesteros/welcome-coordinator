@@ -133,9 +133,9 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         return touchEventCaptured;
     }
 
-    public void notifyProgressScroll(float progress) {
+    public void notifyProgressScroll(float progress, float scroll) {
         for (WelcomePageBehavior welcomePageBehavior : behaviors) {
-            welcomePageBehavior.onPlaytimeChange(this, progress);
+            welcomePageBehavior.onPlaytimeChange(this, progress, scroll);
         }
     }
 

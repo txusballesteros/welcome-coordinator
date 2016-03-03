@@ -68,12 +68,13 @@
         android:id="@+id/title"
         android:layout_above="@+id/subtitle"
         android:text="Speed feedback"
-        app:view_behavior=".ParallaxTitleBehaviour"/>
+        app:view_behavior=".ParallaxTitleBehaviour" />
 
     <TextView
         style="@style/text_subtitle"
         android:id="@+id/subtitle"
         android:layout_alignParentBottom="true"
-        android:text="Fast email, chat and calendar \nintegrations to enhance your \nexisting tools."/>
+        android:text="Fast email, chat and calendar \nintegrations to enhance your \nexisting tools."
+        app:view_behavior=".ParallaxSubtitleBehaviour" />
 
 </com.redbooth.WelcomePageLayout>

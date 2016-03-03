@@ -9,6 +9,11 @@ public abstract class WelcomePageBehavior {
     protected WelcomeCoordinatorLayout coordinatorLayout;
     private View targetView;
     private View destinyView;
+    private WelcomePageLayout page;
+
+    protected WelcomePageLayout getPage() {
+        return page;
+    }
 
     protected View getTargetView() {
         return targetView;
@@ -42,6 +47,10 @@ public abstract class WelcomePageBehavior {
                 });
     }
 
+    void setPage(WelcomePageLayout page) {
+        this.page = page;
+    }
+
     void setTarget(View target) {
         this.targetView = target;
     }
@@ -49,5 +58,5 @@ public abstract class WelcomePageBehavior {
     protected abstract void onCreate(WelcomeCoordinatorLayout coordinator);
 
     protected abstract void onPlaytimeChange(WelcomeCoordinatorLayout coordinator,
-                                             float newPlaytime);
+                                             float newPlaytime, float newScrollPosition);
 }

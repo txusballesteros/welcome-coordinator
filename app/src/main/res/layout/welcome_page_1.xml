@@ -69,12 +69,14 @@
         style="@style/text_title"
         android:id="@+id/title"
         android:layout_above="@+id/subtitle"
-        android:text="Get more done faster"/>
+        android:text="Get more done faster"
+        app:view_behavior=".ParallaxTitleBehaviour" />
 
     <TextView
         style="@style/text_subtitle"
         android:id="@+id/subtitle"
         android:layout_alignParentBottom="true"
-        android:text="Easily organize projects \nand delegate work."/>
+        android:text="Easily organize projects \nand delegate work."
+        app:view_behavior=".ParallaxSubtitleBehaviour" />
 
 </com.redbooth.WelcomePageLayout>
