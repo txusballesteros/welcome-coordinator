@@ -1,7 +1,6 @@
 package com.redbooth.demo;
 
 import android.animation.ObjectAnimator;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
@@ -9,6 +8,7 @@ import android.widget.FrameLayout;
 import com.redbooth.WelcomeCoordinatorLayout;
 import com.redbooth.WelcomePageBehavior;
 
+@SuppressWarnings("unused")
 public class ParallaxTitleBehaviour extends WelcomePageBehavior {
     private final static int PARALLAX_FACTOR = 2;
     private ObjectAnimator parallaxAnimator;

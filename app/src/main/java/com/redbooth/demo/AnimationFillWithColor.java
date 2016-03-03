@@ -23,7 +23,9 @@ public class AnimationFillWithColor extends WelcomePageBehavior {
     }
 
     @Override
-    protected void onPlaytimeChange(WelcomeCoordinatorLayout coordinator, float currentPlaytime) {
+    protected void onPlaytimeChange(WelcomeCoordinatorLayout coordinator,
+                                    float currentPlaytime,
+                                    float newScrollPosition) {
         if (currentPlaytime <= INIT_PLAY_TIME) {
             objectAnimatorY.setCurrentPlayTime(0);
         } else {

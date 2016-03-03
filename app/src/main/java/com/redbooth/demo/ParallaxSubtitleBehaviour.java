@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import com.redbooth.WelcomeCoordinatorLayout;
 import com.redbooth.WelcomePageBehavior;
 
+@SuppressWarnings("unused")
 public class ParallaxSubtitleBehaviour extends WelcomePageBehavior {
     private final static int PARALLAX_FACTOR = 4;
     private ObjectAnimator parallaxAnimator;
