@@ -9,8 +9,8 @@ import android.widget.FrameLayout;
 import com.redbooth.WelcomeCoordinatorLayout;
 import com.redbooth.WelcomePageBehavior;
 
-public class ParallaxTitleBehaviour extends WelcomePageBehavior {
-    private final static int PARALLAX_FACTOR = 2;
+public class ParallaxSubtitleBehaviour extends WelcomePageBehavior {
+    private final static int PARALLAX_FACTOR = 4;
     private ObjectAnimator parallaxAnimator;
 
     @Override
@@ -48,6 +48,7 @@ public class ParallaxTitleBehaviour extends WelcomePageBehavior {
         if (newScrollPosition >= parallaxAnimator.getStartDelay()) {
             currentPlaytime = (long)(newScrollPosition - parallaxAnimator.getStartDelay());
         }
+        Log.d("debug", "Playtime: " + currentPlaytime);
         parallaxAnimator.setCurrentPlayTime(currentPlaytime);
     }
 }

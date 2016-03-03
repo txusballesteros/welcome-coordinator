@@ -64,6 +64,7 @@ public class WelcomePageLayout extends RelativeLayout {
                 if (behavior != null) {
                     behavior.setCoordinator(coordinatorLayout);
                     behavior.setTarget(view);
+                    behavior.setPage(this);
                     result.add(behavior);
                 }
             }

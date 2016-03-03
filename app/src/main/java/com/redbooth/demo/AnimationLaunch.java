@@ -24,7 +24,9 @@ public class AnimationLaunch extends WelcomePageBehavior {
     }
 
     @Override
-    protected void onPlaytimeChange(WelcomeCoordinatorLayout coordinator, float newPlaytime) {
+    protected void onPlaytimeChange(WelcomeCoordinatorLayout coordinator,
+                                    float newPlaytime,
+                                    float newScrollPosition) {
         if (newPlaytime < 1) {
             long playTime = (long) (newPlaytime * DURATION);
             objectAnimatorY.setCurrentPlayTime(playTime);

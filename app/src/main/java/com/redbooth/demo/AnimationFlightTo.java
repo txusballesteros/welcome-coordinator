@@ -77,7 +77,9 @@ public class AnimationFlightTo extends WelcomePageBehavior {
     }
 
     @Override
-    protected void onPlaytimeChange(WelcomeCoordinatorLayout coordinator, float newPlaytime) {
+    protected void onPlaytimeChange(WelcomeCoordinatorLayout coordinator,
+                                    float newPlaytime,
+                                    float newScrollPosition) {
         if (newPlaytime <= INIT_TIME) {
             setCurrentTimeInAllAnimators(0);
         } else if (newPlaytime > INIT_TIME
