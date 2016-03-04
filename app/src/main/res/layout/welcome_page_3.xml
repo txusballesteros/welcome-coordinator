@@ -12,22 +12,51 @@
         android:layout_height="60dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="16dp"
-        android:background="@drawable/destiny"/>
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="40dp"/>
 
-    <FrameLayout
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/android_destiny">
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp">
 
-        <View
-            android:layout_width="300dp"
-            android:layout_height="200dp"
-            android:background="@color/white"
-            android:layout_gravity="center"
-            android:layout_centerHorizontal="true"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/easel"/>
 
-    </FrameLayout>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_chart"/>
+
+            <View
+                android:id="@+id/arrow_chart_mask"
+                android:layout_width="150dp"
+                android:layout_height="90dp"
+                android:transformPivotX="150dp"
+                android:background="@color/white"/>
+
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/avatar5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="10dp"
+            android:scaleX="0"
+            android:scaleY="0"
+            android:src="@drawable/avatar_lucy2" />
+
+    </RelativeLayout>
 
     <TextView
         style="@style/text_title"
