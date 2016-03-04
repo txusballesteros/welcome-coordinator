@@ -64,6 +64,7 @@ public class WelcomePageLayout extends RelativeLayout {
                 if (behavior != null) {
                     behavior.setCoordinator(coordinatorLayout);
                     behavior.setTarget(view);
+                    behavior.setPage(this);
                     result.add(behavior);
                 }
             }
@@ -105,7 +106,7 @@ public class WelcomePageLayout extends RelativeLayout {
             final TypedArray attributes = context.obtainStyledAttributes(attrs,
                     R.styleable.WelcomePageLayout_LayoutParams);
             if (attributes.hasValue(R.styleable.WelcomePageLayout_LayoutParams_view_behavior)) {
-                behavior = parseBehavior(context, attrs, attributes
+                behavior = parseBehavior(context, attributes
                         .getString(R.styleable.WelcomePageLayout_LayoutParams_view_behavior));
             }
             if (attributes.hasValue(R.styleable.WelcomePageLayout_LayoutParams_destiny)) {
@@ -115,7 +116,7 @@ public class WelcomePageLayout extends RelativeLayout {
             attributes.recycle();
         }
 
-        private WelcomePageBehavior parseBehavior(Context context, AttributeSet attrs, String name) {
+        private WelcomePageBehavior parseBehavior(Context context, String name) {
             WelcomePageBehavior result = null;
             if (!TextUtils.isEmpty(name)) {
                 final String fullName;
@@ -128,9 +129,9 @@ public class WelcomePageLayout extends RelativeLayout {
                     Class<WelcomePageBehavior> behaviorClazz
                             = (Class<WelcomePageBehavior>) Class.forName(fullName);
                     final Constructor<WelcomePageBehavior> mainConstructor
-                            = behaviorClazz.getConstructor(WelcomePageBehavior.CONSTRUCTOR_PARAMS);
+                            = behaviorClazz.getConstructor();
                     mainConstructor.setAccessible(true);
-                    result = mainConstructor.newInstance(context, attrs);
+                    result = mainConstructor.newInstance();
                 } catch (Exception e) {
                     throw new RuntimeException("Could not inflate Behavior subclass " + fullName, e);
                 }

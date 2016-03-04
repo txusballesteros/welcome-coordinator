@@ -1,25 +1,20 @@
 package com.redbooth.demo;
 
 import android.animation.ObjectAnimator;
-import android.content.Context;
-import android.support.annotation.NonNull;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
+import com.redbooth.WelcomeCoordinatorLayout;
 import com.redbooth.WelcomePageBehavior;
 
+@SuppressWarnings("unused")
 public class AnimationLaunch extends WelcomePageBehavior {
     public static final long DURATION = 10000L;
     private ObjectAnimator objectAnimatorY;
     private ObjectAnimator objectAnimatorX;
 
-    public AnimationLaunch(@NonNull Context context, @NonNull AttributeSet attributes) {
-        super(context, attributes);
-    }
-
     @Override
-    protected void onConfigure() {
+    protected void onCreate(WelcomeCoordinatorLayout coordinator) {
         objectAnimatorY = ObjectAnimator.ofFloat(getTargetView(), View.TRANSLATION_Y, 0, -getTargetView().getTop() - getTargetView().getHeight());
         objectAnimatorY.setDuration(DURATION);
         objectAnimatorY.setInterpolator(new LinearInterpolator());
@@ -29,9 +24,11 @@ public class AnimationLaunch extends WelcomePageBehavior {
     }
 
     @Override
-    public void setCurrentPlayTime(float progress) {
-        if (progress < 1) {
-            long playTime = (long) (progress * DURATION);
+    protected void onPlaytimeChange(WelcomeCoordinatorLayout coordinator,
+                                    float newPlaytime,
+                                    float newScrollPosition) {
+        if (newPlaytime < 1) {
+            long playTime = (long) (newPlaytime * DURATION);
             objectAnimatorY.setCurrentPlayTime(playTime);
             objectAnimatorX.setCurrentPlayTime(playTime);
         } else {

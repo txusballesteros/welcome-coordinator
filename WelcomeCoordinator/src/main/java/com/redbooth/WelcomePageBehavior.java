@@ -1,27 +1,19 @@
 package com.redbooth;
 
-import android.content.Context;
-import android.content.res.TypedArray;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
 public abstract class WelcomePageBehavior {
-    static final Class<?>[] CONSTRUCTOR_PARAMS = new Class<?>[] {
-            Context.class,
-            AttributeSet.class
-    };
-
     private final static int NO_DESTINY_VIEW = -1;
-    public static final View NON_DESTINY = null;
     protected WelcomeCoordinatorLayout coordinatorLayout;
     private View targetView;
     private View destinyView;
-    private Context context;
-    private AttributeSet attributes;
+    private WelcomePageLayout page;
+
+    protected WelcomePageLayout getPage() {
+        return page;
+    }
 
     protected View getTargetView() {
         return targetView;
@@ -43,33 +35,28 @@ public abstract class WelcomePageBehavior {
                 .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
-                        onConfigure();
+                        onCreate(coordinatorLayout);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                            coordinatorLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                            coordinatorLayout.getViewTreeObserver()
+                                    .removeOnGlobalLayoutListener(this);
                         } else {
-                            coordinatorLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                            coordinatorLayout.getViewTreeObserver()
+                                    .removeGlobalOnLayoutListener(this);
                         }
                     }
                 });
+    }
+
+    void setPage(WelcomePageLayout page) {
+        this.page = page;
     }
 
     void setTarget(View target) {
         this.targetView = target;
     }
 
-    public WelcomePageBehavior(@NonNull Context context, @NonNull AttributeSet attributes) {
-        this.context = context;
-        this.attributes = attributes;
-    }
+    protected abstract void onCreate(WelcomeCoordinatorLayout coordinator);
 
-    public WelcomePageBehavior(@NonNull WelcomeCoordinatorLayout coordinatorLayout,
-                               @NonNull View targetView, @Nullable View destinyView) {
-        this.coordinatorLayout = coordinatorLayout;
-        this.targetView = targetView;
-        this.destinyView = destinyView;
-    }
-
-    protected abstract void onConfigure();
-
-    public abstract void setCurrentPlayTime(float progress);
+    protected abstract void onPlaytimeChange(WelcomeCoordinatorLayout coordinator,
+                                             float newPlaytime, float newScrollPosition);
 }

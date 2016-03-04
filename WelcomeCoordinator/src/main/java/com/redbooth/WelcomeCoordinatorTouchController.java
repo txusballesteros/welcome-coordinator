@@ -7,7 +7,6 @@ import android.os.Build;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.ViewTreeObserver;
-import android.view.animation.DecelerateInterpolator;
 
 class WelcomeCoordinatorTouchController {
     public static final int MAX_VELOCITY = 300;
@@ -52,7 +51,8 @@ class WelcomeCoordinatorTouchController {
         view.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
-                view.notifyProgressScroll(view.getScrollX() / (float) view.getWidth());
+                view.notifyProgressScroll(view.getScrollX() / (float) view.getWidth(),
+                                          view.getScrollX());
             }
         });
     }
@@ -76,6 +76,9 @@ class WelcomeCoordinatorTouchController {
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
+                setScrollX(scrollLimited(event.getX()));
+                velocityTracker.addMovement(event);
+                velocityTracker.computeCurrentVelocity(CURRENT_VELOCITY);
                 evaluateMoveToPage();
                 break;
         }
@@ -131,11 +134,9 @@ class WelcomeCoordinatorTouchController {
         if (view.getScrollX() != scrollX) {
             smoothScrollAnimator = ObjectAnimator.ofInt(view, PROPERTY_SCROLL_X, view.getScrollX(), scrollX);
             smoothScrollAnimator.setDuration(SMOOTH_SCROLL_DURATION);
-            smoothScrollAnimator.setInterpolator(new DecelerateInterpolator());
             smoothScrollAnimator.addListener(new Animator.AnimatorListener() {
                 @Override
-                public void onAnimationStart(Animator animation) {
-                }
+                public void onAnimationStart(Animator animation) { }
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
@@ -148,12 +149,10 @@ class WelcomeCoordinatorTouchController {
                 }
 
                 @Override
-                public void onAnimationCancel(Animator animation) {
-                }
+                public void onAnimationCancel(Animator animation) { }
 
                 @Override
-                public void onAnimationRepeat(Animator animation) {
-                }
+                public void onAnimationRepeat(Animator animation) { }
             });
             smoothScrollAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
