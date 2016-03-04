@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.os.Build;
 import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -142,31 +143,48 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
 
     private void drawIndicator(Canvas canvas) {
         int radius = 20;
-        int margin = 10;
+        int margin = 30;
         int centerX = (getWidth() - radius)/2 + radius/2;
         int indicatorWidth = radius * 2;
         int indicatorAndMargin = indicatorWidth + margin;
         int leftIndicators = centerX - ((getNumOfPages()-1) * indicatorAndMargin) / 2 ;
-        int positionY = getHeight() - radius - margin * 2;
+        int positionY = getHeight() - radius - margin;
+
+        //all the points
         for (int i = 0; i < getNumOfPages(); i++) {
             int x = leftIndicators + indicatorAndMargin * i + getScrollX();
             canvas.drawCircle(x, positionY, radius, paintUnselected);
         }
 
+        //Previous page
         float preSelectedXPosition = leftIndicators + getScrollX() + getPageSelected() * indicatorAndMargin;
         //canvas.drawCircle(preSelectedXPosition, positionY, radius, paintPreSelected);
 
+        //Selected page with movement
         float width = (float) getWidth();
         float scrollProgress = getScrollX() / width;
         float selectedXPosition = leftIndicators + getScrollX() + scrollProgress * indicatorAndMargin;
         //canvas.drawCircle(selectedXPosition, positionY, radius, paintSelected);
 
-        int top = getHeight() - indicatorAndMargin - margin;
-        int bottom = getHeight() - margin*2;
+        int top = getHeight() - indicatorAndMargin;
+        int bottom = top + radius*2;
+        /*Rectangle
         if (preSelectedXPosition <= selectedXPosition) {
             canvas.drawRoundRect(preSelectedXPosition - radius, top, selectedXPosition + radius, bottom, radius, radius, paintPreSelected);
         } else {
             canvas.drawRoundRect(selectedXPosition - radius, top, preSelectedXPosition + radius, bottom, radius, radius, paintPreSelected);
+        }
+        */
+
+        if (preSelectedXPosition <= selectedXPosition) {
+            int halfWide = radius * 4 / 2;
+            float f2 = selectedXPosition - preSelectedXPosition;
+            Log.d("DIFERENCE", "diference:" + f2);
+            float leftSide = Math.min(halfWide, f2);
+            float rightSide = Math.min(0, preSelectedXPosition - radius - selectedXPosition + radius);
+            canvas.drawRoundRect(selectedXPosition - radius, top, selectedXPosition + radius, bottom, radius, radius, paintPreSelected);
+        } else {
+            canvas.drawRoundRect(selectedXPosition - radius, top, selectedXPosition + radius, bottom, radius, radius, paintPreSelected);
         }
 
     }
