@@ -2,18 +2,79 @@
 <com.redbooth.WelcomePageLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:background="@color/page2">
+
+    <View
+        android:id="@+id/card1_page2"
+        android:layout_width="150dp"
+        android:layout_height="130dp"
+        android:layout_toLeftOf="@+id/avatar1_page2"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        android:visibility="invisible"
+        android:translationX="-500dp"/>
+
+    <View
+        android:id="@+id/avatar1_page2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/avatar_5_background"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:scaleX="0"
+        android:scaleY="0"/>
+
+    <View
+        android:id="@+id/card2_page2"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/card1_page2"
+        android:layout_toRightOf="@+id/avatar2_page2"
+        android:layout_marginLeft="16dp"
+        android:background="@color/white"
+        android:visibility="invisible"
+        android:translationX="500dp"/>
 
     <ImageView
-        android:id="@+id/android_go_to_place"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="80dp"
-        android:src="@drawable/ic_face_80dp"
-        app:view_behavior=".AnimationFlyTo"
-        app:destiny="@+id/android_destiny" />
+        android:id="@+id/star"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:src="@drawable/ic_star_72dp"
+        android:layout_alignRight="@+id/card2_page2"
+        android:layout_alignTop="@+id/card2_page2"
+        app:view_behavior=".AnimationFlightTo"
+        app:destiny="@+id/android_destiny"
+        android:visibility="invisible"/>
+
+    <View
+        android:id="@+id/avatar2_page2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/avatar_3_background"
+        android:layout_below="@+id/card1_page2"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:scaleX="0"
+        android:scaleY="0"/>
+
+    <TextView
+        style="@style/text_title"
+        android:id="@+id/title"
+        android:layout_above="@+id/subtitle"
+        android:text="Speed feedback"
+        app:view_behavior=".ParallaxTitleBehaviour" />
+
+    <TextView
+        style="@style/text_subtitle"
+        android:id="@+id/subtitle"
+        android:layout_alignParentBottom="true"
+        android:text="Fast email, chat and calendar \nintegrations to enhance your \nexisting tools."
+        app:view_behavior=".ParallaxSubtitleBehaviour" />
 
 </com.redbooth.WelcomePageLayout>

@@ -5,12 +5,15 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 
 public abstract class WelcomePageBehavior {
-    static final Class<?>[] CONSTRUCTOR_PARAMS = new Class<?>[] {};
-
     private final static int NO_DESTINY_VIEW = -1;
     protected WelcomeCoordinatorLayout coordinatorLayout;
     private View targetView;
     private View destinyView;
+    private WelcomePageLayout page;
+
+    protected WelcomePageLayout getPage() {
+        return page;
+    }
 
     protected View getTargetView() {
         return targetView;
@@ -32,21 +35,28 @@ public abstract class WelcomePageBehavior {
                 .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
-                        onConfigure();
+                        onCreate(coordinatorLayout);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                            coordinatorLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                            coordinatorLayout.getViewTreeObserver()
+                                    .removeOnGlobalLayoutListener(this);
                         } else {
-                            coordinatorLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                            coordinatorLayout.getViewTreeObserver()
+                                    .removeGlobalOnLayoutListener(this);
                         }
                     }
                 });
+    }
+
+    void setPage(WelcomePageLayout page) {
+        this.page = page;
     }
 
     void setTarget(View target) {
         this.targetView = target;
     }
 
-    protected abstract void onConfigure();
+    protected abstract void onCreate(WelcomeCoordinatorLayout coordinator);
 
-    public abstract void setCurrentPlayTime(float progress);
+    protected abstract void onPlaytimeChange(WelcomeCoordinatorLayout coordinator,
+                                             float newPlaytime, float newScrollPosition);
 }

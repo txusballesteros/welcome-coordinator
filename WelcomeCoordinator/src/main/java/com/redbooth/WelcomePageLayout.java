@@ -64,6 +64,7 @@ public class WelcomePageLayout extends RelativeLayout {
                 if (behavior != null) {
                     behavior.setCoordinator(coordinatorLayout);
                     behavior.setTarget(view);
+                    behavior.setPage(this);
                     result.add(behavior);
                 }
             }
@@ -128,7 +129,7 @@ public class WelcomePageLayout extends RelativeLayout {
                     Class<WelcomePageBehavior> behaviorClazz
                             = (Class<WelcomePageBehavior>) Class.forName(fullName);
                     final Constructor<WelcomePageBehavior> mainConstructor
-                            = behaviorClazz.getConstructor(WelcomePageBehavior.CONSTRUCTOR_PARAMS);
+                            = behaviorClazz.getConstructor();
                     mainConstructor.setAccessible(true);
                     result = mainConstructor.newInstance();
                 } catch (Exception e) {

@@ -51,7 +51,8 @@ class WelcomeCoordinatorTouchController {
         view.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
-                view.notifyProgressScroll(view.getScrollX() / (float) view.getWidth());
+                view.notifyProgressScroll(view.getScrollX() / (float) view.getWidth(),
+                                          view.getScrollX());
             }
         });
     }
