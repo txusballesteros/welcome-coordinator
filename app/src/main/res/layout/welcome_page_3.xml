@@ -12,13 +12,14 @@
         android:layout_height="60dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="16dp" />
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="40dp"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/android_destiny">
+        android:layout_marginTop="60dp">
 
         <ImageView
             android:layout_width="wrap_content"
