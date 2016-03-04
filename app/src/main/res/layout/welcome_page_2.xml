@@ -75,18 +75,36 @@
 
     </RelativeLayout>
 
-    <ImageView
+    <FrameLayout
         android:id="@+id/star"
         android:layout_width="44dp"
         android:layout_height="44dp"
-        android:src="@drawable/ic_star_72dp"
         android:layout_alignRight="@+id/card2_page2"
         android:layout_alignTop="@+id/card2_page2"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         app:view_behavior=".AnimationFlightTo"
-        app:destiny="@+id/android_destiny"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        app:destiny="@+id/android_destiny">
+
+        <ImageView
+            android:id="@+id/star_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:tint="#000000"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="5dp"
+            android:alpha="0"
+            android:src="@drawable/star_large_no_shadow" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/star_large_no_shadow" />
+
+    </FrameLayout>
+
+
 
     <ImageView
         android:id="@+id/avatar2_page2"
