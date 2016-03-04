@@ -23,8 +23,10 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     private FrameLayout mainContentView;
     private List<WelcomePageBehavior> behaviors = new ArrayList<>();
     private OnPageScrollListener onPageScrollListener;
+    private int pageSelected = 0;
     private Paint paintUnselected;
     private Paint paintSelected;
+    private Paint paintPreSelected;
 
     public WelcomeCoordinatorLayout(Context context) {
         super(context);
@@ -92,6 +94,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         paintUnselected.setColor(Color.WHITE);
         paintSelected = new Paint();
         paintSelected.setColor(Color.BLACK);
+        paintPreSelected = new Paint();
+        paintPreSelected.setColor(Color.GRAY);
     }
 
     public void addBehavior(WelcomePageBehavior welcomePageBehavior) {
@@ -137,9 +141,9 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     }
 
     private void drawIndicator(Canvas canvas) {
-        int radius = 10;
-        int margin = 5;
-        int centerX = (getWidth() - radius)/2;
+        int radius = 20;
+        int margin = 10;
+        int centerX = (getWidth() - radius)/2 + radius/2;
         int indicatorWidth = radius * 2;
         int indicatorAndMargin = indicatorWidth + margin;
         int leftIndicators = centerX - ((getNumOfPages()-1) * indicatorAndMargin) / 2 ;
@@ -148,10 +152,27 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
             int x = leftIndicators + indicatorAndMargin * i + getScrollX();
             canvas.drawCircle(x, positionY, radius, paintUnselected);
         }
+
+        float preSelectedXPosition = leftIndicators + getScrollX() + getPageSelected() * indicatorAndMargin;
+        //canvas.drawCircle(preSelectedXPosition, positionY, radius, paintPreSelected);
+
         float width = (float) getWidth();
         float scrollProgress = getScrollX() / width;
         float selectedXPosition = leftIndicators + getScrollX() + scrollProgress * indicatorAndMargin;
-        canvas.drawCircle(selectedXPosition, positionY, radius, paintSelected);
+        //canvas.drawCircle(selectedXPosition, positionY, radius, paintSelected);
+
+        int top = getHeight() - indicatorAndMargin - margin;
+        int bottom = getHeight() - margin*2;
+        if (preSelectedXPosition <= selectedXPosition) {
+            canvas.drawRoundRect(preSelectedXPosition - radius, top, selectedXPosition + radius, bottom, radius, radius, paintPreSelected);
+        } else {
+            canvas.drawRoundRect(selectedXPosition - radius, top, preSelectedXPosition + radius, bottom, radius, radius, paintPreSelected);
+        }
+
+    }
+
+    public int getPageSelected() {
+        return pageSelected;
     }
 
     @Override
@@ -181,6 +202,7 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
 
             @Override
             public void onPageSelected(int pageSelected) {
+                WelcomeCoordinatorLayout.this.pageSelected = pageSelected;
                 WelcomeCoordinatorLayout.this.onPageScrollListener.onPageSelected(WelcomeCoordinatorLayout.this, pageSelected);
             }
         });
