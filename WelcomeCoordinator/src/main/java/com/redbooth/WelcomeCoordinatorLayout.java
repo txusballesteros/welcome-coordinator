@@ -2,6 +2,9 @@ package com.redbooth;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Build;
 import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
@@ -20,6 +23,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     private FrameLayout mainContentView;
     private List<WelcomePageBehavior> behaviors = new ArrayList<>();
     private OnPageScrollListener onPageScrollListener;
+    private Paint paintUnselected;
+    private Paint paintSelected;
 
     public WelcomeCoordinatorLayout(Context context) {
         super(context);
@@ -79,6 +84,14 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         pageInflater = new WelcomeCoordinatorPageInflater(this);
         buildMainContentView();
         attachMainContentView();
+        configureCounter();
+    }
+
+    private void configureCounter() {
+        paintUnselected = new Paint();
+        paintUnselected.setColor(Color.WHITE);
+        paintSelected = new Paint();
+        paintSelected.setColor(Color.BLACK);
     }
 
     public void addBehavior(WelcomePageBehavior welcomePageBehavior) {
@@ -115,6 +128,30 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
                 .LayoutParams(pageWidth, originalHeight);
         layoutParams.setMargins(pageMarginLeft, WITHOUT_MARGIN, WITHOUT_MARGIN, WITHOUT_MARGIN);
         pageView.setLayoutParams(layoutParams);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        drawIndicator(canvas);
+    }
+
+    private void drawIndicator(Canvas canvas) {
+        int radius = 10;
+        int margin = 5;
+        int centerX = (getWidth() - radius)/2;
+        int indicatorWidth = radius * 2;
+        int indicatorAndMargin = indicatorWidth + margin;
+        int leftIndicators = centerX - ((getNumOfPages()-1) * indicatorAndMargin) / 2 ;
+        int positionY = getHeight() - radius - margin * 2;
+        for (int i = 0; i < getNumOfPages(); i++) {
+            int x = leftIndicators + indicatorAndMargin * i + getScrollX();
+            canvas.drawCircle(x, positionY, radius, paintUnselected);
+        }
+        float width = (float) getWidth();
+        float scrollProgress = getScrollX() / width;
+        float selectedXPosition = leftIndicators + getScrollX() + scrollProgress * indicatorAndMargin;
+        canvas.drawCircle(selectedXPosition, positionY, radius, paintSelected);
     }
 
     @Override
