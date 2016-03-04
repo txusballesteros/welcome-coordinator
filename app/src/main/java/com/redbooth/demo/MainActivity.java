@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.redbooth.WelcomeCoordinatorLayout;
 import com.redbooth.demo.animators.ChatAvatarsAnimator;
+import com.redbooth.demo.animators.InSyncAnimator;
 import com.redbooth.demo.animators.RocketAvatarsAnimator;
 import com.redbooth.demo.animators.RocketFlightAwayAnimator;
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private RocketAvatarsAnimator rocketAvatarsAnimator;
     private ChatAvatarsAnimator chatAvatarsAnimator;
     private RocketFlightAwayAnimator rocketFlightAwayAnimator;
+    private InSyncAnimator inSyncAnimator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,12 @@ public class MainActivity extends AppCompatActivity {
                         if (chatAvatarsAnimator == null) {
                             chatAvatarsAnimator = new ChatAvatarsAnimator(coordinatorLayout);
                             chatAvatarsAnimator.play();
+                        }
+                        break;
+                    case 2:
+                        if (inSyncAnimator == null) {
+                            inSyncAnimator = new InSyncAnimator(coordinatorLayout);
+                            inSyncAnimator.play();
                         }
                         break;
                     case 3:

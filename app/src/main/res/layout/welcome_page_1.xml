@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/rocket_figure"
-            android:layout_marginTop="-40dp"
+            android:layout_marginTop="-45dp"
             android:alpha="0"
             android:background="@drawable/rocket_flame"
             android:transformPivotY="0dp" />

@@ -83,8 +83,8 @@
         android:layout_alignTop="@+id/card2_page2"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
-        app:view_behavior=".AnimationFlightTo"
         android:visibility="invisible"
+        app:view_behavior=".AnimationFlightTo"
         app:destiny="@+id/android_destiny">
 
         <ImageView
@@ -92,8 +92,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:tint="#000000"
-            android:layout_marginLeft="3dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
             android:alpha="0"
             android:src="@drawable/star_large_no_shadow" />
 
