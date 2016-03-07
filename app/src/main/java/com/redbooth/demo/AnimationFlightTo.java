@@ -16,21 +16,21 @@ public class AnimationFlightTo extends WelcomePageBehavior {
     public static final int Y = 1;
     public static final int X = 0;
     public static final int LENGTH_LOCATION_ARRAY = 2;
+    private ObjectAnimator alphaAnimator;
     private ObjectAnimator objectAnimatorY;
     private ObjectAnimator objectAnimatorX;
     private ObjectAnimator objectAnimatorScaleX;
     private ObjectAnimator objectAnimatorScaleY;
-    private ObjectAnimator objectAnimatorRotation;
 
     @Override
     protected void onCreate(WelcomeCoordinatorLayout coordinator) {
         configureTranslation();
         configureScale();
-        configureRotation();
     }
 
     private void configureTranslation() {
-        View targetView = getTargetView();
+        final View targetView = getTargetView();
+        final View shadowView = getTargetView().findViewById(R.id.star_shadow);
         int[] viewLocation = new int[LENGTH_LOCATION_ARRAY];
         getLeftPositionFrom(targetView, viewLocation);
         int[] destinyViewLocation = new int[LENGTH_LOCATION_ARRAY];
@@ -41,6 +41,9 @@ public class AnimationFlightTo extends WelcomePageBehavior {
         objectAnimatorX = ObjectAnimator.ofFloat(targetView, View.TRANSLATION_X, 0, -(viewLocation[X] - destinyViewLocation[X]));
         objectAnimatorX.setInterpolator(new LinearInterpolator());
         objectAnimatorX.setDuration(DURATION);
+        alphaAnimator = ObjectAnimator.ofFloat(shadowView, View.ALPHA, 0, 0.4f);
+        alphaAnimator.setInterpolator(new LinearInterpolator());
+        alphaAnimator.setDuration(DURATION);
     }
 
     private void configureScale() {
@@ -53,13 +56,6 @@ public class AnimationFlightTo extends WelcomePageBehavior {
         objectAnimatorScaleY = ObjectAnimator.ofFloat(targetView, View.SCALE_Y, scaleYFactor);
         objectAnimatorScaleY.setDuration(DURATION);
         objectAnimatorScaleY.setInterpolator(new LinearInterpolator());
-    }
-
-    private void configureRotation() {
-        View targetView = getTargetView();
-        objectAnimatorRotation = ObjectAnimator.ofFloat(targetView, View.ROTATION, -360/5);
-        objectAnimatorRotation.setDuration(DURATION);
-        objectAnimatorRotation.setInterpolator(new LinearInterpolator());
     }
 
     private void getLeftPositionFrom(View view, int[] location) {
@@ -96,6 +92,6 @@ public class AnimationFlightTo extends WelcomePageBehavior {
         objectAnimatorX.setCurrentPlayTime(playTime);
         objectAnimatorScaleX.setCurrentPlayTime(playTime);
         objectAnimatorScaleY.setCurrentPlayTime(playTime);
-        objectAnimatorRotation.setCurrentPlayTime(playTime);
+        alphaAnimator.setCurrentPlayTime(playTime);
     }
 }

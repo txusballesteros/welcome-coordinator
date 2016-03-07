@@ -7,63 +7,78 @@
     android:layout_height="match_parent"
     tools:background="@color/page1">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/rocket"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
         android:paddingTop="16dp"
-        app:view_behavior=".AnimationLaunch">
+        app:view_behavior=".AnimationLaunch"
+        android:clipToPadding="false">
 
-        <RelativeLayout
-            android:layout_width="150dp"
-            android:layout_height="250dp"
-            android:background="@color/rocket"
-            android:paddingTop="16dp"
-            android:clipToPadding="false">
+        <ImageView
+            android:id="@+id/rocket_flame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/rocket_figure"
+            android:layout_marginTop="-45dp"
+            android:alpha="0"
+            android:background="@drawable/rocket_flame"
+            android:transformPivotY="0dp" />
 
-            <View
-                android:id="@+id/avatar4"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="135dp"
-                android:scaleX="0"
-                android:scaleY="0"
-                android:background="@drawable/avatar_4_background" />
+        <ImageView
+            android:id="@+id/rocket_figure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/rocket_large" />
 
-            <View
-                android:id="@+id/avatar3"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="90dp"
-                android:scaleX="0"
-                android:scaleY="0"
-                android:background="@drawable/avatar_3_background" />
 
-            <View
-                android:id="@+id/avatar2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="45dp"
-                android:scaleX="0"
-                android:scaleY="0"
-                android:background="@drawable/avatar_2_background" />
+        <ImageView
+            android:id="@+id/avatar4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/avatar3"
+            android:layout_marginTop="-8dp"
+            android:scaleX="0"
+            android:scaleY="0"
+            android:background="@drawable/avatar_jack" />
 
-            <View
-                android:id="@+id/avatar1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_centerHorizontal="true"
-                android:scaleX="0"
-                android:scaleY="0"
-                android:background="@drawable/avatar_1_background" />
+        <ImageView
+            android:id="@+id/avatar3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/avatar2"
+            android:layout_marginTop="-8dp"
+            android:scaleX="0"
+            android:scaleY="0"
+            android:background="@drawable/avatar_maggie" />
 
-        </RelativeLayout>
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/avatar2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/avatar1"
+            android:layout_marginTop="-8dp"
+            android:scaleX="0"
+            android:scaleY="0"
+            android:background="@drawable/avatar_lucy" />
+
+        <ImageView
+            android:id="@+id/avatar1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:scaleX="0"
+            android:scaleY="0"
+            android:background="@drawable/avatar_fred" />
+
+    </RelativeLayout>
 
     <TextView
         style="@style/text_title"

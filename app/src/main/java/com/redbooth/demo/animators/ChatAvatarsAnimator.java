@@ -29,7 +29,6 @@ public class ChatAvatarsAnimator {
         Animator card2Animator = getFlightFromRight(card2);
         Animator starAnimator = getScaleAndVisibilityAnimator(star);
         animator = new AnimatorSet();
-        animator.setStartDelay(600);
         animator.play(starAnimator).after(card2Animator);
         animator.play(card2Animator).after(avatar2Animator);
         animator.play(avatar2Animator).after(card1Animator);
