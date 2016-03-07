@@ -11,7 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#68B7AB"
-        app:indicatorUnselected="@android:color/darker_gray"
-        app:indicatorSelected="@android:color/secondary_text_light" />
+        app:indicatorUnselected="#99b7b7b7"
+        app:indicatorSelected="#bfb7b7b7" />
+
+    <Button
+        android:id="@+id/skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="skip"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"/>
 
 </RelativeLayout>

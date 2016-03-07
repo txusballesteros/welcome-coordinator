@@ -52,7 +52,7 @@ class WelcomeCoordinatorTouchController {
             @Override
             public void onScrollChanged() {
                 view.notifyProgressScroll(view.getScrollX() / (float) view.getWidth(),
-                                          view.getScrollX());
+                        view.getScrollX());
             }
         });
     }
@@ -122,11 +122,19 @@ class WelcomeCoordinatorTouchController {
         }
     }
 
-    private void scrollToPage(int newCurrentPage) {
+    public void scrollToPage(int newCurrentPage) {
+        scrollToPage(newCurrentPage, true);
+    }
+
+    public void scrollToPage(int newCurrentPage, boolean animated) {
         int width = view.getWidth();
         int limitedNumPage = Math.max(0, Math.min(view.getNumOfPages() -1, newCurrentPage));
         int scrollX = limitedNumPage * width;
-        smoothScrollX(scrollX);
+        if (animated) {
+            smoothScrollX(scrollX);
+        } else {
+            setScrollX(scrollX);
+        }
     }
 
     private void smoothScrollX(int scrollX) {

@@ -225,6 +225,11 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         return pageSelected;
     }
 
+    public void setCurrentPage(int newCurrentPage, boolean animated) {
+        pageSelected = Math.max(0, Math.min(getNumOfPages() -1, newCurrentPage));
+        touchController.scrollToPage(pageSelected, animated);
+    }
+
     public interface OnPageScrollListener {
         void onScrollPage(View v, float progress, float maximum);
         void onPageSelected(View v, int pageSelected);
