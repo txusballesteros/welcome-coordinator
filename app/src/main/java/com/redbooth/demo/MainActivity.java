@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 
 import com.redbooth.WelcomeCoordinatorLayout;
 import com.redbooth.demo.animators.ChatAvatarsAnimator;
@@ -16,6 +17,7 @@ import com.redbooth.demo.animators.RocketFlightAwayAnimator;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
     private boolean animationReady = false;
@@ -97,8 +99,13 @@ public class MainActivity extends AppCompatActivity {
         backgroundAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                coordinatorLayout.setBackgroundColor((int)animation.getAnimatedValue());
+                coordinatorLayout.setBackgroundColor((int) animation.getAnimatedValue());
             }
         });
+    }
+
+    @OnClick(R.id.skip)
+    void skip() {
+        coordinatorLayout.setCurrentPage(coordinatorLayout.getNumOfPages() - 1, true);
     }
 }
