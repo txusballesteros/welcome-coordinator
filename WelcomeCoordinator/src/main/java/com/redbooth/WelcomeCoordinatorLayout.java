@@ -167,8 +167,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
         drawIndicator(canvas);
     }
 
@@ -219,6 +219,10 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
                 WelcomeCoordinatorLayout.this.onPageScrollListener.onPageSelected(WelcomeCoordinatorLayout.this, pageSelected);
             }
         });
+    }
+
+    public int getPageSelected() {
+        return pageSelected;
     }
 
     public interface OnPageScrollListener {
