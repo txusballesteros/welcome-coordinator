@@ -138,12 +138,12 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
 
     public void setIndicatorColorSelected(int indicatorColorSelected) {
         this.indicatorColorSelected = indicatorColorSelected;
-        configureIndicatorColors();
+        indicatorPaintSelected.setColor(indicatorColorSelected);
     }
 
     public void setIndicatorColorUnselected(int indicatorColorUnselected) {
         this.indicatorColorUnselected = indicatorColorUnselected;
-        configureIndicatorColors();
+        indicatorPaintUnselected.setColor(indicatorColorUnselected);
     }
 
     @Override
