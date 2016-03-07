@@ -49,7 +49,6 @@ public class ParallaxSubtitleBehaviour extends WelcomePageBehavior {
         if (newScrollPosition >= parallaxAnimator.getStartDelay()) {
             currentPlaytime = (long)(newScrollPosition - parallaxAnimator.getStartDelay());
         }
-        Log.d("debug", "Playtime: " + currentPlaytime);
         parallaxAnimator.setCurrentPlayTime(currentPlaytime);
     }
 }

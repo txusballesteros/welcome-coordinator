@@ -2,6 +2,10 @@ package com.redbooth;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Build;
 import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
@@ -16,32 +20,41 @@ import java.util.List;
 
 public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     public static final int WITHOUT_MARGIN = 0;
+    public static final int RADIUS = 20;
+    public static final int RADIUS_MARGIN = 30;
+    public static final int DEF_INDICATOR_UNSELECTED_COLOR = Color.WHITE;
+    public static final int DEF_INDICATOR_SELECTED_COLOR = Color.BLACK;
     private WelcomeCoordinatorTouchController touchController;
     private WelcomeCoordinatorPageInflater pageInflater;
     private FrameLayout mainContentView;
     private List<WelcomePageBehavior> behaviors = new ArrayList<>();
     private OnPageScrollListener onPageScrollListener;
+    private int pageSelected = 0;
+    int indicatorColorUnselected = DEF_INDICATOR_UNSELECTED_COLOR;
+    int indicatorColorSelected = DEF_INDICATOR_SELECTED_COLOR;
+    private Paint indicatorPaintUnselected;
+    private Paint indicatorPaintSelected;
 
     public WelcomeCoordinatorLayout(Context context) {
         super(context);
-        initializeView();
+        initializeView(context, null);
     }
 
     public WelcomeCoordinatorLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initializeView();
+        initializeView(context, attrs);
     }
 
     public WelcomeCoordinatorLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initializeView();
+        initializeView(context, attrs);
     }
 
     @SuppressWarnings("unused")
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public WelcomeCoordinatorLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        initializeView();
+        initializeView(context, attrs);
     }
 
     public void addPage(@LayoutRes int... layoutResourceIds) {
@@ -81,13 +94,25 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         return result;
     }
 
-    private void initializeView() {
+    private void initializeView(Context context, AttributeSet attrs) {
         this.setHorizontalScrollBarEnabled(false);
         this.setOverScrollMode(OVER_SCROLL_NEVER);
         touchController = new WelcomeCoordinatorTouchController(this);
         pageInflater = new WelcomeCoordinatorPageInflater(this);
+        extractAttributes(context, attrs);
         buildMainContentView();
         attachMainContentView();
+        configureIndicatorColors();
+    }
+
+    private void extractAttributes(Context context, AttributeSet attrs) {
+        final TypedArray attributes
+                = context.obtainStyledAttributes(attrs, R.styleable.WelcomeCoordinatorLayout);
+        indicatorColorUnselected
+                = attributes.getColor(R.styleable.WelcomeCoordinatorLayout_indicatorUnselected, DEF_INDICATOR_UNSELECTED_COLOR);
+        indicatorColorSelected
+                = attributes.getColor(R.styleable.WelcomeCoordinatorLayout_indicatorSelected, DEF_INDICATOR_SELECTED_COLOR);
+        attributes.recycle();
     }
 
     private void buildMainContentView() {
@@ -102,6 +127,23 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         removeAllViews();
         setClipChildren(false);
         addView(mainContentView);
+    }
+
+    private void configureIndicatorColors() {
+        indicatorPaintUnselected = new Paint();
+        indicatorPaintUnselected.setColor(indicatorColorUnselected);
+        indicatorPaintSelected = new Paint();
+        indicatorPaintSelected.setColor(indicatorColorSelected);
+    }
+
+    public void setIndicatorColorSelected(int indicatorColorSelected) {
+        this.indicatorColorSelected = indicatorColorSelected;
+        indicatorPaintSelected.setColor(indicatorColorSelected);
+    }
+
+    public void setIndicatorColorUnselected(int indicatorColorUnselected) {
+        this.indicatorColorUnselected = indicatorColorUnselected;
+        indicatorPaintUnselected.setColor(indicatorColorUnselected);
     }
 
     @Override
@@ -122,6 +164,28 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
                 .LayoutParams(coordinatorWidth, originalHeight);
         layoutParams.setMargins(pageMarginLeft, WITHOUT_MARGIN, WITHOUT_MARGIN, WITHOUT_MARGIN);
         pageView.setLayoutParams(layoutParams);
+    }
+
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
+        drawIndicator(canvas);
+    }
+
+    private void drawIndicator(Canvas canvas) {
+        int centerX = (getWidth() - RADIUS)/2 + RADIUS/2;
+        int indicatorWidth = RADIUS * 2;
+        int indicatorAndMargin = indicatorWidth + RADIUS_MARGIN;
+        int leftIndicators = centerX - ((getNumOfPages()-1) * indicatorAndMargin) / 2 ;
+        int positionY = getHeight() - RADIUS - RADIUS_MARGIN;
+        for (int i = 0; i < getNumOfPages(); i++) {
+            int x = leftIndicators + indicatorAndMargin * i + getScrollX();
+            canvas.drawCircle(x, positionY, RADIUS, indicatorPaintUnselected);
+        }
+        float width = (float) getWidth();
+        float scrollProgress = getScrollX() / width;
+        float selectedXPosition = leftIndicators + getScrollX() + scrollProgress * indicatorAndMargin;
+        canvas.drawCircle(selectedXPosition, positionY, RADIUS, indicatorPaintSelected);
     }
 
     @Override
@@ -151,9 +215,14 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
 
             @Override
             public void onPageSelected(int pageSelected) {
+                WelcomeCoordinatorLayout.this.pageSelected = pageSelected;
                 WelcomeCoordinatorLayout.this.onPageScrollListener.onPageSelected(WelcomeCoordinatorLayout.this, pageSelected);
             }
         });
+    }
+
+    public int getPageSelected() {
+        return pageSelected;
     }
 
     public interface OnPageScrollListener {

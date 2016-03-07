@@ -4,4 +4,8 @@
         <attr name="view_behavior" format="string"/>
         <attr name="destiny" format="reference"/>
     </declare-styleable>
+    <declare-styleable name="WelcomeCoordinatorLayout">
+        <attr name="indicatorUnselected" format="color"/>
+        <attr name="indicatorSelected" format="color"/>
+    </declare-styleable>
 </resources>

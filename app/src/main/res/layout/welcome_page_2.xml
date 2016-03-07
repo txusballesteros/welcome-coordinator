@@ -5,7 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:background="@color/page2">
+    tools:background="@color/page2"
+    android:paddingTop="30dp"
+    android:paddingBottom="30dp"
+    android:clipToPadding="false">
 
     <RelativeLayout
         android:id="@+id/card1_page2"
@@ -92,19 +95,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:tint="#000000"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="6dp"
             android:alpha="0"
             android:src="@drawable/star_large_no_shadow" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginRight="6dp"
+            android:layout_marginBottom="6dp"
             android:src="@drawable/star_large_no_shadow" />
 
     </FrameLayout>
-
-
 
     <ImageView
         android:id="@+id/avatar2_page2"
