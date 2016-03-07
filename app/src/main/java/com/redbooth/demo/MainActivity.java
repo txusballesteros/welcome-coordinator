@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     case 3:
-                        if (rocketAvatarsAnimator == null) {
+                        if (rocketFlightAwayAnimator == null) {
                             rocketFlightAwayAnimator = new RocketFlightAwayAnimator(coordinatorLayout);
                             rocketFlightAwayAnimator.play();
                         }
