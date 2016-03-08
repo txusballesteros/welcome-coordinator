@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.redbooth.WelcomePageLayout
+<com.redbooth.welcomecoordinator.WelcomePageLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -134,4 +134,4 @@
         android:text="Fast email, chat and calendar \nintegrations to enhance your \nexisting tools."
         app:view_behavior=".ParallaxSubtitleBehaviour" />
 
-</com.redbooth.WelcomePageLayout>
+</com.redbooth.welcomecoordinator.WelcomePageLayout>
