@@ -1,4 +1,4 @@
-package com.redbooth;
+package com.redbooth.welcomecoordinator;
 
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;

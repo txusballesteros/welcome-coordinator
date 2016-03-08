@@ -7,9 +7,8 @@ import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 
-import com.redbooth.WelcomeCoordinatorLayout;
+import com.redbooth.welcomecoordinator.WelcomeCoordinatorLayout;
 import com.redbooth.demo.animators.ChatAvatarsAnimator;
 import com.redbooth.demo.animators.InSyncAnimator;
 import com.redbooth.demo.animators.RocketAvatarsAnimator;

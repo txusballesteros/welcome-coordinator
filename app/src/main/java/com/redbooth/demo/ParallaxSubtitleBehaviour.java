@@ -1,13 +1,12 @@
 package com.redbooth.demo;
 
 import android.animation.ObjectAnimator;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 
-import com.redbooth.WelcomeCoordinatorLayout;
-import com.redbooth.WelcomePageBehavior;
+import com.redbooth.welcomecoordinator.WelcomeCoordinatorLayout;
+import com.redbooth.welcomecoordinator.WelcomePageBehavior;
 
 @SuppressWarnings("unused")
 public class ParallaxSubtitleBehaviour extends WelcomePageBehavior {

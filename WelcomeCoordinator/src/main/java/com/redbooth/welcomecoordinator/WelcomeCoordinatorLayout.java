@@ -1,4 +1,4 @@
-package com.redbooth;
+package com.redbooth.welcomecoordinator;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -15,12 +15,14 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 
+import com.redbooth.welcomecoordinator.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     public static final int WITHOUT_MARGIN = 0;
-    public static final int RADIUS = 20;
+    public static final int RADIUS = 12;
     public static final int RADIUS_MARGIN = 30;
     public static final int DEF_INDICATOR_UNSELECTED_COLOR = Color.WHITE;
     public static final int DEF_INDICATOR_SELECTED_COLOR = Color.BLACK;

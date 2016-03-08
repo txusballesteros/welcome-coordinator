@@ -1,4 +1,4 @@
-package com.redbooth;
+package com.redbooth.welcomecoordinator;
 
 import android.annotation.TargetApi;
 import android.content.Context;
