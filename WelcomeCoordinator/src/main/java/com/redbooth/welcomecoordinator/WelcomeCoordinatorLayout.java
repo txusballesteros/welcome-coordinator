@@ -15,8 +15,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 
-import com.redbooth.welcomecoordinator.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +30,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     private List<WelcomePageBehavior> behaviors = new ArrayList<>();
     private OnPageScrollListener onPageScrollListener;
     private int pageSelected = 0;
-    int indicatorColorUnselected = DEF_INDICATOR_UNSELECTED_COLOR;
-    int indicatorColorSelected = DEF_INDICATOR_SELECTED_COLOR;
+    private int indicatorColorUnselected = DEF_INDICATOR_UNSELECTED_COLOR;
+    private int indicatorColorSelected = DEF_INDICATOR_SELECTED_COLOR;
     private Paint indicatorPaintUnselected;
     private Paint indicatorPaintSelected;
 
