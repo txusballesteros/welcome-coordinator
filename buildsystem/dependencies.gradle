@@ -18,6 +18,14 @@ ext {
     androidSupportVersion = "23.2.0"
     butterKnifeVersion = "7.0.1"
 
+    //JCenter
+    jcenterUserOrganinzation = "txusballesteros"
+    jcenterGroupId = "com.txusballesteros"
+    jcenterArtifactId = "WelcomeCoordinator"
+    jcenterWebsite = "https://github.com/txusballesteros"
+    jcenterDescription = "Welcome Coordinator for Android"
+    jcenterRepository = "https://github.com/txusballesteros/welcome-coordinator"
+
     mobileDependencies = [
         AppCompat: "com.android.support:appcompat-v7:${androidSupportVersion}",
         DesignLibrary: "com.android.support:design:${androidSupportVersion}",
