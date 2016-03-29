@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Build;
 import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
@@ -34,6 +35,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     private int indicatorColorSelected = DEF_INDICATOR_SELECTED_COLOR;
     private Paint indicatorPaintUnselected;
     private Paint indicatorPaintSelected;
+    private boolean showIndicators = true;
+    private boolean scrollingEnabled = true;
 
     public WelcomeCoordinatorLayout(Context context) {
         super(context);
@@ -48,6 +51,19 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     public WelcomeCoordinatorLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initializeView(context, attrs);
+    }
+
+    @Override
+    protected boolean onRequestFocusInDescendants(int direction, Rect previouslyFocusedRect) {
+        return true;
+    }
+
+    public void showIndicators(boolean show) {
+        this.showIndicators = show;
+    }
+
+    public void setScrollingEnabled(boolean enabled) {
+        this.scrollingEnabled = enabled;
     }
 
     @SuppressWarnings("unused")
@@ -108,10 +124,14 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     private void extractAttributes(Context context, AttributeSet attrs) {
         final TypedArray attributes
                 = context.obtainStyledAttributes(attrs, R.styleable.WelcomeCoordinatorLayout);
-        indicatorColorUnselected
-                = attributes.getColor(R.styleable.WelcomeCoordinatorLayout_indicatorUnselected, DEF_INDICATOR_UNSELECTED_COLOR);
-        indicatorColorSelected
-                = attributes.getColor(R.styleable.WelcomeCoordinatorLayout_indicatorSelected, DEF_INDICATOR_SELECTED_COLOR);
+        indicatorColorUnselected = attributes
+                .getColor(R.styleable.WelcomeCoordinatorLayout_indicatorUnselected, DEF_INDICATOR_UNSELECTED_COLOR);
+        indicatorColorSelected = attributes
+                .getColor(R.styleable.WelcomeCoordinatorLayout_indicatorSelected, DEF_INDICATOR_SELECTED_COLOR);
+        showIndicators = attributes
+                .getBoolean(R.styleable.WelcomeCoordinatorLayout_showIndicators, showIndicators);
+        scrollingEnabled = attributes
+                .getBoolean(R.styleable.WelcomeCoordinatorLayout_scrollingEnabled, scrollingEnabled);
         attributes.recycle();
     }
 
@@ -169,7 +189,9 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     @Override
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
-        drawIndicator(canvas);
+        if (showIndicators) {
+            drawIndicator(canvas);
+        }
     }
 
     private void drawIndicator(Canvas canvas) {
@@ -190,9 +212,12 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        boolean touchEventCaptured = touchController.onTouchEvent(event);
-        if (!touchEventCaptured) {
-            touchEventCaptured = super.onTouchEvent(event);
+        boolean touchEventCaptured = false;
+        if (scrollingEnabled) {
+            touchEventCaptured = touchController.onTouchEvent(event);
+            if (!touchEventCaptured) {
+                touchEventCaptured = super.onTouchEvent(event);
+            }
         }
         return touchEventCaptured;
     }

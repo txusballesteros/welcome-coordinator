@@ -11,14 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#68B7AB"
+        app:showIndicators="false"
         app:indicatorUnselected="#99b7b7b7"
         app:indicatorSelected="#bfb7b7b7" />
 
     <Button
+        style="?attr/borderlessButtonStyle"
         android:id="@+id/skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="skip"
+        android:textColor="@color/white"
         android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"/>
 

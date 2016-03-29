@@ -7,5 +7,7 @@
     <declare-styleable name="WelcomeCoordinatorLayout">
         <attr name="indicatorUnselected" format="color"/>
         <attr name="indicatorSelected" format="color"/>
+        <attr name="showIndicators" format="boolean"/>
+        <attr name="scrollingEnabled" format="boolean" />
     </declare-styleable>
 </resources>

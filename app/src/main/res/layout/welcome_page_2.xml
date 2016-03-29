@@ -3,12 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:background="@color/page2"
-    android:paddingTop="30dp"
-    android:paddingBottom="30dp"
-    android:clipToPadding="false">
+    style="@style/welcome_page"
+    tools:background="@color/page2">
 
     <RelativeLayout
         android:id="@+id/card1_page2"
