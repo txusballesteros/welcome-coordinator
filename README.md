@@ -1,7 +1,7 @@
 WelcomeCoordinator
 ==================
 
-![](assets/welcome_demo.gif) ![](assets/onboarding_demo.gif)
+![](assets/welcome_demo.gif)  ![](assets/onboarding_demo.gif)
 
 Welcome Coordinator is a library for Android it will helps you to create really awesome welcome wizards for your Apps, but this is not all, also you can use the library to create form wizards really nice. Take a look to how you would integrate Welcome Coordinator into your App. 
 
@@ -34,7 +34,68 @@ Add the view to your xml layout file.
         android:layout_height="match_parent' />
 ```
 
-### 3.- Adding and Customizing the View
+### 3.- Modeling the Pages
+
+Modeling your welcome pages it's really easy, you only needs to create a simple layout resource. Let me an appointment about _WelcomePageLayout_, the behavior of the layout is the same of the RelativeLayout. 
+
+```xml
+<com.redbooth.welcomecoordinator.WelcomePageLayout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    ...
+    
+</com.redbooth.welcomecoordinator.WelcomePageLayout>
+```
+
+** WARNING ** Don't forget create a _WelcomePageLayout_ as root element of your page.
+
+### 4.- Adding the Pages to Coordinator
+
+```java
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    ...
+    final WelcomeCoordinatorLayout coordinatorLayout 
+            = (WelcomeCoordinatorLayout)findViewById(R.id.coordinator); 
+    coordinatorLayout.addPage(R.layout.welcome_page_1,
+            ...,
+            R.layout.welcome_page_4);
+}
+```
+
+### 5.- Building your own Behaviors
+
+If you want to have behaviour on your page views when the user navigate inside of your welcome, you can create you own behaviors.
+
+```java
+public class ParallaxTitleBehaviour extends WelcomePageBehavior {
+    @Override
+    protected void onCreate(WelcomeCoordinatorLayout coordinator) {
+        ...
+    }
+    
+    @Override
+    protected void onPlaytimeChange(WelcomeCoordinatorLayout coordinator,
+                                    float newPlaytime,
+                                    float newScrollPosition) {
+        ...
+    }
+}
+```
+
+### 6.- SettingUp your own Behaviors
+
+```xml
+
+<com.redbooth.welcomecoordinator.WelcomePageLayout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <TextView
+        ...
+        app:view_behavior=".ParallaxTitleBehaviour" />
+            
+</com.redbooth.welcomecoordinator.WelcomePageLayout>
+```
 
 ## Developers
 

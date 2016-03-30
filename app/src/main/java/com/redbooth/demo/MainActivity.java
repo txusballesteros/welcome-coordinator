@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializePages() {
+        final WelcomeCoordinatorLayout coordinatorLayout
+                = (WelcomeCoordinatorLayout)findViewById(R.id.coordinator);
         coordinatorLayout.addPage(R.layout.welcome_page_1,
                 R.layout.welcome_page_2,
                 R.layout.welcome_page_3,
