@@ -37,7 +37,7 @@ Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/bubble_finished_new"/>
+            android:src="@drawable/bubble_finished"/>
 
         <ImageView
             android:id="@+id/decorator_finished"
@@ -82,7 +82,7 @@ Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/bubble_excellent_new"/>
+            android:src="@drawable/bubble_excellent"/>
 
         <ImageView
             android:layout_width="wrap_content"
