@@ -21,6 +21,7 @@ dependencies {
     ...
     compile 'com.redbooth:WelcomeCoordinator:1.0.0'
 }
+```
 
 ### 2.- Adding and Customizing the View
 
