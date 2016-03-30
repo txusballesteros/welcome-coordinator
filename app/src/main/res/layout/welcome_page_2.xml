@@ -87,7 +87,7 @@ Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/excellent"
+            android:src="@drawable/excellent_new"
             android:layout_marginTop="25dp"
             android:layout_marginLeft="25dp"/>
 

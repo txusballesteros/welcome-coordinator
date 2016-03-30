@@ -47,7 +47,7 @@ Modeling your welcome pages it's really easy, you only needs to create a simple 
 </com.redbooth.welcomecoordinator.WelcomePageLayout>
 ```
 
-** WARNING ** Don't forget create a _WelcomePageLayout_ as root element of your page.
+**WARNING** Don't forget create a _WelcomePageLayout_ as root element of your page.
 
 ### 4.- Adding the Pages to Coordinator
 
