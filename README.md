@@ -7,7 +7,7 @@ Welcome Coordinator is a library for Android will helps you to create really awe
 
 ## Latest Version
 
-[![Download](https://api.bintray.com/packages/txusballesteros/maven/WelcomeCoordinator/images/download.svg) ](https://bintray.com/txusballesteros/maven/WelcomeCoordinator/_latestVersion) ![](https://img.shields.io/badge/platform-android-green.svg) ![](https://img.shields.io/badge/Min%20SDK-14-green.svg) ![](https://img.shields.io/badge/Licence-Apache%20v2-green.svg) [![Build Status](https://travis-ci.org/txusballesteros/welcome-coordinator.svg?branch=master)](https://travis-ci.org/txusballesteros/welcome-coordinator)
+[![Download](https://api.bintray.com/packages/txusballesteros/maven/WelcomeCoordinator/images/download.svg) ](https://bintray.com/txusballesteros/maven/WelcomeCoordinator/_latestVersion) ![](https://img.shields.io/badge/platform-android-green.svg) ![](https://img.shields.io/badge/Min%20SDK-14-green.svg) ![](https://img.shields.io/badge/Licence-Apache%20v2-green.svg) [![Build Status](https://travis-ci.org/txusballesteros/welcome-coordinator.svg?branch=master)](https://travis-ci.org/txusballesteros/welcome-coordinator) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Welcome%20Coordinator-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/3351)
 
 
 ## How to use
