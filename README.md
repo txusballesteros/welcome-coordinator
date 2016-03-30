@@ -58,8 +58,8 @@ protected void onCreate(Bundle savedInstanceState) {
     final WelcomeCoordinatorLayout coordinatorLayout 
             = (WelcomeCoordinatorLayout)findViewById(R.id.coordinator); 
     coordinatorLayout.addPage(R.layout.welcome_page_1,
-            ...,
-            R.layout.welcome_page_4);
+                              ...,
+                              R.layout.welcome_page_4);
 }
 ```
 
