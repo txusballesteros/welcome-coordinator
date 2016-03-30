@@ -31,7 +31,7 @@ Add the view to your xml layout file.
 <com.redbooth.WelcomeCoordinator
         android:id="@+id/coordinator"
         android:layout_width="match_parent"
-        android:layout_height="match_parent' />
+        android:layout_height="match_parent" />
 ```
 
 ### 3.- Modeling the Pages
