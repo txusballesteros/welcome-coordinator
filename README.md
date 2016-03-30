@@ -3,7 +3,7 @@ WelcomeCoordinator
 
 ![](assets/welcome_demo.gif)  ![](assets/onboarding_demo.gif)
 
-Welcome Coordinator is a library for Android it will helps you to create really awesome welcome wizards for your Apps, but this is not all, also you can use the library to create form wizards really nice. Take a look to how you would integrate Welcome Coordinator into your App. 
+Welcome Coordinator is a library for Android will helps you to create really awesome welcome wizards for your Apps, but this is not all, also you can use the library to create form wizards really nice. Take a look to how you would integrate Welcome Coordinator into your App. 
 
 ## Latest Version
 
