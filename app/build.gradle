@@ -32,7 +32,7 @@ android {
 
     defaultConfig {
         applicationId "${globalConfiguration.getAt("androidApplicationId")}.demo"
-        minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+        minSdkVersion globalConfiguration.getAt("appMinSdkVersion")
         targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
         versionCode globalConfiguration.getAt("androidVersionCode")
         versionName globalConfiguration.getAt("androidVersionName")
