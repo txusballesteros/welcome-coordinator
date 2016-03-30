@@ -28,7 +28,7 @@ dependencies {
 Add the view to your xml layout file.
 
 ```xml
-<com.redbooth.WelcomeCoordinator
+<com.redbooth.welcomecoordinator.WelcomeCoordinatorLayout
         android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
