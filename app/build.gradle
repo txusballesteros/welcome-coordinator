@@ -53,7 +53,6 @@ android {
 dependencies {
     def mobileDependencies = globalConfiguration.mobileDependencies
     compile project(':WelcomeCoordinator')
-//    compile 'com.redbooth:WelcomeCoordinator:1.0.0'
     compile mobileDependencies.AppCompat
     compile mobileDependencies.DesignLibrary
     compile mobileDependencies.ButterKnife

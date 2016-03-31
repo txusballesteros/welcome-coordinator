@@ -19,7 +19,7 @@ Add the library dependency to your build.gradle file.
 ```groovy
 dependencies {
     ...
-    compile 'com.redbooth:WelcomeCoordinator:1.0.0'
+    compile 'com.redbooth:WelcomeCoordinator:1.0.1'
 }
 ```
 
