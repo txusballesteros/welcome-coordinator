@@ -22,7 +22,7 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.redbooth.welcomecoordinator;
+package com.redbooth;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -40,10 +40,14 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 
+import com.redbooth.welcomecoordinator.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class WelcomeCoordinatorLayout extends HorizontalScrollView {
+    public static final boolean ANIMATED  = true;
+    public static final boolean INANIMATED  = false;
     public static final int WITHOUT_MARGIN = 0;
     public static final int RADIUS = 12;
     public static final int RADIUS_MARGIN = 30;
@@ -161,7 +165,7 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
 
     private void buildMainContentView() {
         mainContentView = new FrameLayout(this.getContext());
-        mainContentView.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
+        mainContentView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.MATCH_PARENT));
         mainContentView.setClipToPadding(false);
         mainContentView.setClipChildren(false);
@@ -204,8 +208,7 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         int reversePosition = getNumOfPages() - 1 - position;
         int pageMarginLeft = (coordinatorWidth * reversePosition);
         int originalHeight = pageView.getLayoutParams().height;
-        FrameLayout.LayoutParams layoutParams = new FrameLayout
-                .LayoutParams(coordinatorWidth, originalHeight);
+        LayoutParams layoutParams = new LayoutParams(coordinatorWidth, originalHeight);
         layoutParams.setMargins(pageMarginLeft, WITHOUT_MARGIN, WITHOUT_MARGIN, WITHOUT_MARGIN);
         pageView.setLayoutParams(layoutParams);
     }

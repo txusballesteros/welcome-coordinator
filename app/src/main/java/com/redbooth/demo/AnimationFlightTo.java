@@ -29,8 +29,8 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
-import com.redbooth.welcomecoordinator.WelcomeCoordinatorLayout;
-import com.redbooth.welcomecoordinator.WelcomePageBehavior;
+import com.redbooth.WelcomeCoordinatorLayout;
+import com.redbooth.WelcomePageBehavior;
 
 @SuppressWarnings("unused")
 public class AnimationFlightTo extends WelcomePageBehavior {

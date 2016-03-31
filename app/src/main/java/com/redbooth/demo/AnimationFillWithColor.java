@@ -27,8 +27,8 @@ package com.redbooth.demo;
 import android.animation.ObjectAnimator;
 import android.view.View;
 
-import com.redbooth.welcomecoordinator.WelcomeCoordinatorLayout;
-import com.redbooth.welcomecoordinator.WelcomePageBehavior;
+import com.redbooth.WelcomeCoordinatorLayout;
+import com.redbooth.WelcomePageBehavior;
 
 @SuppressWarnings("unused")
 public class AnimationFillWithColor extends WelcomePageBehavior {
