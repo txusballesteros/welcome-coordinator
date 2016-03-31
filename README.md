@@ -7,7 +7,7 @@ Welcome Coordinator is a library for Android will helps you to create really awe
 
 ## Latest Version
 
-[![Download](https://api.bintray.com/packages/txusballesteros/maven/WelcomeCoordinator/images/download.svg) ](https://bintray.com/txusballesteros/maven/WelcomeCoordinator/_latestVersion) ![](https://img.shields.io/badge/platform-android-green.svg) ![](https://img.shields.io/badge/Min%20SDK-14-green.svg) ![](https://img.shields.io/badge/Licence-Apache%20v2-green.svg)
+[![Download](https://api.bintray.com/packages/txusballesteros/maven/WelcomeCoordinator/images/download.svg) ](https://bintray.com/txusballesteros/maven/WelcomeCoordinator/_latestVersion) ![](https://img.shields.io/badge/platform-android-green.svg) ![](https://img.shields.io/badge/Min%20SDK-14-green.svg) ![](https://img.shields.io/badge/Licence-Apache%20v2-green.svg) [![Build Status](https://travis-ci.org/txusballesteros/welcome-coordinator.svg?branch=master)](https://travis-ci.org/txusballesteros/welcome-coordinator) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Welcome%20Coordinator-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/3351)
 
 
 ## How to use
@@ -28,10 +28,10 @@ dependencies {
 Add the view to your xml layout file.
 
 ```xml
-<com.redbooth.WelcomeCoordinator
+<com.redbooth.welcomecoordinator.WelcomeCoordinatorLayout
         android:id="@+id/coordinator"
         android:layout_width="match_parent"
-        android:layout_height="match_parent' />
+        android:layout_height="match_parent" />
 ```
 
 ### 3.- Modeling the Pages
@@ -47,7 +47,7 @@ Modeling your welcome pages it's really easy, you only needs to create a simple 
 </com.redbooth.welcomecoordinator.WelcomePageLayout>
 ```
 
-** WARNING ** Don't forget create a _WelcomePageLayout_ as root element of your page.
+**WARNING** Don't forget create a _WelcomePageLayout_ as root element of your page.
 
 ### 4.- Adding the Pages to Coordinator
 
