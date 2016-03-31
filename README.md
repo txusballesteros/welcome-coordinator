@@ -28,7 +28,7 @@ dependencies {
 Add the view to your xml layout file.
 
 ```xml
-<com.redbooth.welcomecoordinator.WelcomeCoordinatorLayout
+<com.redbooth.WelcomeCoordinatorLayout
         android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -39,7 +39,7 @@ Add the view to your xml layout file.
 Modeling your welcome pages it's really easy, you only needs to create a simple layout resource. Let me an appointment about _WelcomePageLayout_, the behavior of the layout is the same of the RelativeLayout. 
 
 ```xml
-<com.redbooth.welcomecoordinator.WelcomePageLayout
+<com.redbooth.WelcomePageLayout
     xmlns:android="http://schemas.android.com/apk/res/android">
     
     ...
@@ -87,7 +87,7 @@ public class ParallaxTitleBehaviour extends WelcomePageBehavior {
 
 ```xml
 
-<com.redbooth.welcomecoordinator.WelcomePageLayout
+<com.redbooth.WelcomePageLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     

@@ -22,7 +22,7 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.redbooth.welcomecoordinator;
+package com.redbooth;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
@@ -121,7 +121,7 @@ class WelcomeCoordinatorTouchController {
     }
 
     private void setScrollX(int value) {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             view.setScrollX(value);
         } else {
             view.scrollTo(value, view.getScrollY());

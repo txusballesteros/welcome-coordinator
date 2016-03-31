@@ -28,8 +28,8 @@ import android.animation.ObjectAnimator;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
-import com.redbooth.welcomecoordinator.WelcomeCoordinatorLayout;
-import com.redbooth.welcomecoordinator.WelcomePageBehavior;
+import com.redbooth.WelcomeCoordinatorLayout;
+import com.redbooth.WelcomePageBehavior;
 
 @SuppressWarnings("unused")
 public class AnimationLaunch extends WelcomePageBehavior {

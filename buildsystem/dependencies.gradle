@@ -37,7 +37,7 @@ ext {
     androidTargetSdkVersion = 23
     androidCompileSdkVersion = 23
     androidVersionCode = 1
-    androidVersionName = "1.0.0"
+    androidVersionName = "1.0.1"
 
     //Libraries Versions
     androidSupportVersion = "23.2.1"

@@ -22,7 +22,7 @@
  *
  * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
  */
-package com.redbooth.welcomecoordinator;
+package com.redbooth;
 
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
