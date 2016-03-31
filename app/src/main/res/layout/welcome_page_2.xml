@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
 -->
-<com.redbooth.welcomecoordinator.WelcomePageLayout
+<com.redbooth.WelcomePageLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -149,4 +149,4 @@ Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
         android:text="Fast email, chat and calendar \nintegrations to enhance your \nexisting tools."
         app:view_behavior=".ParallaxSubtitleBehaviour" />
 
-</com.redbooth.welcomecoordinator.WelcomePageLayout>
+</com.redbooth.WelcomePageLayout>
