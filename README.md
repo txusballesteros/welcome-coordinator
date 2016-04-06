@@ -3,7 +3,7 @@ WelcomeCoordinator
 
 ![](assets/welcome_demo.gif)  ![](assets/onboarding_demo.gif)
 
-Welcome Coordinator is a library for Android will helps you to create really awesome welcome wizards for your Apps, but this is not all, also you can use the library to create form wizards really nice. Take a look to how you would integrate Welcome Coordinator into your App. 
+Welcome Coordinator is a library for Android that will help you create really awesome welcome wizards for your apps, but that's not all. You can also use the library to create form wizards really nicely. Take a look to how you would integrate Welcome Coordinator into your app. 
 
 ## Latest Version
 
@@ -12,7 +12,7 @@ Welcome Coordinator is a library for Android will helps you to create really awe
 
 ## How to use
 
-### 1.- Configuring your project dependencies
+### 1.- Configuring your Project Dependencies
 
 Add the library dependency to your build.gradle file.
 
@@ -36,7 +36,7 @@ Add the view to your xml layout file.
 
 ### 3.- Modeling the Pages
 
-Modeling your welcome pages it's really easy, you only needs to create a simple layout resource. Let me an appointment about _WelcomePageLayout_, the behavior of the layout is the same of the RelativeLayout. 
+Modeling your welcome pages is really easy. You only need to create a simple layout resource. Let me an appointment about _WelcomePageLayout_, the behavior of the layout is the same of the RelativeLayout. 
 
 ```xml
 <com.redbooth.WelcomePageLayout
@@ -47,7 +47,7 @@ Modeling your welcome pages it's really easy, you only needs to create a simple 
 </com.redbooth.welcomecoordinator.WelcomePageLayout>
 ```
 
-**WARNING** Don't forget create a _WelcomePageLayout_ as root element of your page.
+**WARNING** Don't forget to create a _WelcomePageLayout_ as the root element of your page.
 
 ### 4.- Adding the Pages to Coordinator
 
@@ -65,7 +65,7 @@ protected void onCreate(Bundle savedInstanceState) {
 
 ### 5.- Building your own Behaviors
 
-If you want to have behaviour on your page views when the user navigate inside of your welcome, you can create you own behaviors.
+If you want to have behavior on your page views when the user navigate inside of your welcome, you can create you own behaviors.
 
 ```java
 public class ParallaxTitleBehaviour extends WelcomePageBehavior {
@@ -83,7 +83,7 @@ public class ParallaxTitleBehaviour extends WelcomePageBehavior {
 }
 ```
 
-### 6.- SettingUp your own Behaviors
+### 6.- Setting Up Your Own Behaviors
 
 ```xml
 
@@ -105,7 +105,7 @@ public class ParallaxTitleBehaviour extends WelcomePageBehavior {
 
 ## Motivation
 
-We created this view as a little piece of the [Redbooth](https://redbooth.com/) App for [Android](https://play.google.com/store/apps/details?id=com.redbooth).
+We created this view as a little piece of the [Redbooth](https://redbooth.com/) app for [Android](https://play.google.com/store/apps/details?id=com.redbooth).
 
 
 ## License
