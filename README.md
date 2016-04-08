@@ -44,7 +44,7 @@ Modeling your welcome pages is really easy. You only need to create a simple lay
     
     ...
     
-</com.redbooth.welcomecoordinator.WelcomePageLayout>
+</com.redbooth.WelcomePageLayout>
 ```
 
 **WARNING** Don't forget to create a _WelcomePageLayout_ as the root element of your page.
@@ -95,7 +95,7 @@ public class ParallaxTitleBehaviour extends WelcomePageBehavior {
         ...
         app:view_behavior=".ParallaxTitleBehaviour" />
             
-</com.redbooth.welcomecoordinator.WelcomePageLayout>
+</com.redbooth.WelcomePageLayout>
 ```
 
 ## Developers
