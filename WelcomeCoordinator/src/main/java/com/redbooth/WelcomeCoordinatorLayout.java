@@ -34,6 +34,7 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -52,6 +53,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     public static final int WITHOUT_MARGIN = 0;
     public static final int DEF_INDICATOR_UNSELECTED_COLOR = Color.WHITE;
     public static final int DEF_INDICATOR_SELECTED_COLOR = Color.BLACK;
+    private static final float INDICATOR_RADIUS_IN_DP = 4;
+    private static final float INDICATOR_RADIUS_PADDING_IN_DP = 10;
     private WelcomeCoordinatorTouchController touchController;
     private WelcomeCoordinatorPageInflater pageInflater;
     private FrameLayout mainContentView;
@@ -62,8 +65,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     private int indicatorColorSelected = DEF_INDICATOR_SELECTED_COLOR;
     private Paint indicatorPaintUnselected;
     private Paint indicatorPaintSelected;
-    private int indicatorRadius = (int) dp2px(4);
-    private int indicatorRadiusMargin = (int) dp2px(10);
+    private int indicatorRadius = (int)dp2px(INDICATOR_RADIUS_IN_DP);
+    private int indicatorRadiusMargin = (int)dp2px(INDICATOR_RADIUS_PADDING_IN_DP);
     private boolean showIndicators = true;
     private boolean scrollingEnabled = true;
 
@@ -290,6 +293,7 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     }
 
     private float dp2px(float size) {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, size, getContext().getResources().getDisplayMetrics());
+        final DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, size, metrics);
     }
 }
