@@ -26,7 +26,6 @@ package com.redbooth;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -35,7 +34,7 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,8 +62,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     private int indicatorColorSelected = DEF_INDICATOR_SELECTED_COLOR;
     private Paint indicatorPaintUnselected;
     private Paint indicatorPaintSelected;
-    private int indicatorRadius = (int) convertDpToPixel(4, getContext());
-    private int indicatorRadiusMargin = (int) convertDpToPixel(10, getContext());
+    private int indicatorRadius = (int) dp2px(4);
+    private int indicatorRadiusMargin = (int) dp2px(10);
     private boolean showIndicators = true;
     private boolean scrollingEnabled = true;
 
@@ -290,9 +289,7 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         void onPageSelected(View v, int pageSelected);
     }
 
-    private static float convertDpToPixel(float dp, Context context) {
-        Resources resources = context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        return dp * (metrics.densityDpi / 160f);
+    private float dp2px(float size) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, size, getContext().getResources().getDisplayMetrics());
     }
 }
