@@ -34,6 +34,7 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,11 +47,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WelcomeCoordinatorLayout extends HorizontalScrollView {
-    public static final boolean ANIMATED  = true;
-    public static final boolean INANIMATED  = false;
+    public static final boolean ANIMATED = true;
+    public static final boolean INANIMATED = false;
     public static final int WITHOUT_MARGIN = 0;
-    public static final int RADIUS = 12;
-    public static final int RADIUS_MARGIN = 30;
     public static final int DEF_INDICATOR_UNSELECTED_COLOR = Color.WHITE;
     public static final int DEF_INDICATOR_SELECTED_COLOR = Color.BLACK;
     private WelcomeCoordinatorTouchController touchController;
@@ -63,6 +62,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     private int indicatorColorSelected = DEF_INDICATOR_SELECTED_COLOR;
     private Paint indicatorPaintUnselected;
     private Paint indicatorPaintSelected;
+    private int indicatorRadius = (int) dp2px(4);
+    private int indicatorRadiusMargin = (int) dp2px(10);
     private boolean showIndicators = true;
     private boolean scrollingEnabled = true;
 
@@ -120,7 +121,7 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     private List<WelcomePageBehavior> extractPageBehaviors(View view) {
         List<WelcomePageBehavior> behaviors = new ArrayList<>();
         if (view instanceof WelcomePageLayout) {
-            final WelcomePageLayout pageLayout = (WelcomePageLayout)view;
+            final WelcomePageLayout pageLayout = (WelcomePageLayout) view;
             final List<WelcomePageBehavior> pageBehaviors = pageLayout.getBehaviors(this);
             if (!pageBehaviors.isEmpty()) {
                 behaviors.addAll(pageBehaviors);
@@ -222,19 +223,19 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     }
 
     private void drawIndicator(Canvas canvas) {
-        int centerX = (getWidth() - RADIUS)/2 + RADIUS/2;
-        int indicatorWidth = RADIUS * 2;
-        int indicatorAndMargin = indicatorWidth + RADIUS_MARGIN;
-        int leftIndicators = centerX - ((getNumOfPages()-1) * indicatorAndMargin) / 2 ;
-        int positionY = getHeight() - RADIUS - RADIUS_MARGIN;
+        int centerX = (getWidth() - indicatorRadius) / 2 + indicatorRadius / 2;
+        int indicatorWidth = indicatorRadius * 2;
+        int indicatorAndMargin = indicatorWidth + indicatorRadiusMargin;
+        int leftIndicators = centerX - ((getNumOfPages() - 1) * indicatorAndMargin) / 2;
+        int positionY = getHeight() - indicatorRadius - indicatorRadiusMargin;
         for (int i = 0; i < getNumOfPages(); i++) {
             int x = leftIndicators + indicatorAndMargin * i + getScrollX();
-            canvas.drawCircle(x, positionY, RADIUS, indicatorPaintUnselected);
+            canvas.drawCircle(x, positionY, indicatorRadius, indicatorPaintUnselected);
         }
         float width = (float) getWidth();
         float scrollProgress = getScrollX() / width;
         float selectedXPosition = leftIndicators + getScrollX() + scrollProgress * indicatorAndMargin;
-        canvas.drawCircle(selectedXPosition, positionY, RADIUS, indicatorPaintSelected);
+        canvas.drawCircle(selectedXPosition, positionY, indicatorRadius, indicatorPaintSelected);
     }
 
     @Override
@@ -278,12 +279,17 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     }
 
     public void setCurrentPage(int newCurrentPage, boolean animated) {
-        pageSelected = Math.max(0, Math.min(getNumOfPages() -1, newCurrentPage));
+        pageSelected = Math.max(0, Math.min(getNumOfPages() - 1, newCurrentPage));
         touchController.scrollToPage(pageSelected, animated);
     }
 
     public interface OnPageScrollListener {
         void onScrollPage(View v, float progress, float maximum);
+
         void onPageSelected(View v, int pageSelected);
+    }
+
+    private float dp2px(float size) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, size, getContext().getResources().getDisplayMetrics());
     }
 }
