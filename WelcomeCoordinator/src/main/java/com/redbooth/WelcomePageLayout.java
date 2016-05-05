@@ -40,7 +40,7 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WelcomePageLayout extends RelativeLayout {
+public class WelcomePageLayout extends RelativeLayout implements WelcomePageView {
     public WelcomePageLayout(Context context) {
         super(context);
     }
@@ -80,7 +80,8 @@ public class WelcomePageLayout extends RelativeLayout {
         return new LayoutParams(getContext(), attrs);
     }
 
-    List<WelcomePageBehavior> getBehaviors(WelcomeCoordinatorLayout coordinatorLayout) {
+    @Override
+    public List<WelcomePageBehavior> getBehaviors(WelcomeCoordinatorLayout coordinatorLayout) {
         List<WelcomePageBehavior> result = new ArrayList<>();
         for (int index = 0; index < getChildCount(); index++) {
             final View view = getChildAt(index);
@@ -98,7 +99,7 @@ public class WelcomePageLayout extends RelativeLayout {
         return result;
     }
 
-    public static class LayoutParams extends RelativeLayout.LayoutParams {
+    public static class LayoutParams extends RelativeLayout.LayoutParams implements WelcomeLayoutParams {
         public final static int NO_DESTINY_VIEW = -1;
         private int destinyViewId = NO_DESTINY_VIEW;
         private WelcomePageBehavior behavior;
@@ -107,6 +108,7 @@ public class WelcomePageLayout extends RelativeLayout {
             return behavior;
         }
 
+        @Override
         public int getDestinyViewId() {
             return destinyViewId;
         }

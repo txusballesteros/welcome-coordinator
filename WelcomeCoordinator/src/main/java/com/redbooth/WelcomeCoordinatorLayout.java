@@ -32,6 +32,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -82,6 +84,25 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     }
 
     @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        if(!(state instanceof SavedState)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+        SavedState ss = (SavedState)state;
+        super.onRestoreInstanceState(ss.getSuperState());
+        this.pageSelected = ss.pageSelected;
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        SavedState ss = new SavedState(superState);
+        ss.pageSelected = this.pageSelected;
+        return ss;
+    }
+
+    @Override
     protected boolean onRequestFocusInDescendants(int direction, Rect previouslyFocusedRect) {
         return true;
     }
@@ -119,8 +140,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
 
     private List<WelcomePageBehavior> extractPageBehaviors(View view) {
         List<WelcomePageBehavior> behaviors = new ArrayList<>();
-        if (view instanceof WelcomePageLayout) {
-            final WelcomePageLayout pageLayout = (WelcomePageLayout)view;
+        if (view instanceof WelcomePageView) {
+            final WelcomePageView pageLayout = (WelcomePageView)view;
             final List<WelcomePageBehavior> pageBehaviors = pageLayout.getBehaviors(this);
             if (!pageBehaviors.isEmpty()) {
                 behaviors.addAll(pageBehaviors);
@@ -200,6 +221,7 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
             ViewGroup childAt = (ViewGroup) mainContentView.getChildAt(index);
             configurePageLayout(childAt, index);
         }
+        touchController.scrollToPage(pageSelected);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
@@ -285,5 +307,34 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     public interface OnPageScrollListener {
         void onScrollPage(View v, float progress, float maximum);
         void onPageSelected(View v, int pageSelected);
+    }
+
+    static class SavedState extends BaseSavedState {
+        int pageSelected;
+
+        SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        private SavedState(Parcel in) {
+            super(in);
+            this.pageSelected = in.readInt();
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeInt(this.pageSelected);
+        }
+
+        public static final Creator<SavedState> CREATOR =
+                new Creator<SavedState>() {
+                    public SavedState createFromParcel(Parcel in) {
+                        return new SavedState(in);
+                    }
+                    public SavedState[] newArray(int size) {
+                        return new SavedState[size];
+                    }
+                };
     }
 }

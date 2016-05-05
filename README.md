@@ -47,7 +47,18 @@ Modeling your welcome pages is really easy. You only need to create a simple lay
 </com.redbooth.WelcomePageLayout>
 ```
 
-**WARNING** Don't forget to create a _WelcomePageLayout_ as the root element of your page.
+Also you can use _WelcomePagePercentLayout_ that works like a PercentRelativeLayout. 
+
+```xml
+<com.redbooth.WelcomePagePercentLayout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    ...
+    
+</com.redbooth.WelcomePagePercentLayout>
+```
+
+**WARNING** Don't forget to create a _WelcomePageLayout_ or _WelcomePagePercentLayout_ as the root element of your page.
 
 ### 4.- Adding the Pages to Coordinator
 

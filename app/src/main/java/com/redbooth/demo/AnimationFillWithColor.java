@@ -42,7 +42,7 @@ public class AnimationFillWithColor extends WelcomePageBehavior {
     }
 
     protected void configureTranslations() {
-        objectAnimatorY = ObjectAnimator.ofFloat(getTargetView(), View.TRANSLATION_Y, getTargetView().getHeight(), -getTargetView().getWidth()/2 - getPage().getPaddingTop());
+        objectAnimatorY = ObjectAnimator.ofFloat(getTargetView(), View.TRANSLATION_Y, getTargetView().getHeight(), -getTargetView().getWidth()/2 - ((View)getPage()).getPaddingTop());
         objectAnimatorY.setDuration(DURATION);
     }
 
