@@ -45,7 +45,7 @@ public abstract class WelcomePageBehavior {
 
     protected View getDestinyView() {
         if (targetView != null && destinyView == null && coordinatorLayout != null) {
-            int destinyViewId = ((WelcomePageView.WelcomeLayoutParams)targetView.getLayoutParams()).getDestinyViewId();
+            int destinyViewId = ((WelcomeLayoutParams)targetView.getLayoutParams()).getDestinyViewId();
             if (destinyViewId != NO_DESTINY_VIEW) {
                 destinyView = coordinatorLayout.findViewById(destinyViewId);
             }

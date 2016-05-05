@@ -24,8 +24,7 @@
  */
 package com.redbooth;
 
-import java.util.List;
-
-public interface WelcomePageView {
-    List<WelcomePageBehavior> getBehaviors(WelcomeCoordinatorLayout welcomeCoordinatorLayout);
+public interface WelcomeLayoutParams {
+    WelcomePageBehavior getBehavior();
+    int getDestinyViewId();
 }

@@ -26,18 +26,13 @@ package com.redbooth;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.os.Build;
-import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.redbooth.welcomecoordinator.R;
 
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
 import java.util.List;
 
 public class WelcomePageLayout extends RelativeLayout implements WelcomePageView {
@@ -82,35 +77,20 @@ public class WelcomePageLayout extends RelativeLayout implements WelcomePageView
 
     @Override
     public List<WelcomePageBehavior> getBehaviors(WelcomeCoordinatorLayout coordinatorLayout) {
-        List<WelcomePageBehavior> result = new ArrayList<>();
-        for (int index = 0; index < getChildCount(); index++) {
-            final View view = getChildAt(index);
-            if (view.getLayoutParams() instanceof LayoutParams) {
-                final LayoutParams params = (LayoutParams)view.getLayoutParams();
-                final WelcomePageBehavior behavior = params.getBehavior();
-                if (behavior != null) {
-                    behavior.setCoordinator(coordinatorLayout);
-                    behavior.setTarget(view);
-                    behavior.setPage(this);
-                    result.add(behavior);
-                }
-            }
-        }
-        return result;
+        return WelcomeBehaviorsExtract.getWelcomePageBehaviors(this, coordinatorLayout);
     }
 
     public static class LayoutParams extends RelativeLayout.LayoutParams implements WelcomeLayoutParams {
-        public final static int NO_DESTINY_VIEW = -1;
-        private int destinyViewId = NO_DESTINY_VIEW;
-        private WelcomePageBehavior behavior;
+        private WelcomeBehaviorLayoutParams welcomeBehaviorLayoutParams = new WelcomeBehaviorLayoutParams();
 
+        @Override
         public WelcomePageBehavior getBehavior() {
-            return behavior;
+            return welcomeBehaviorLayoutParams.behavior;
         }
 
         @Override
         public int getDestinyViewId() {
-            return destinyViewId;
+            return welcomeBehaviorLayoutParams.destinyViewId;
         }
 
         public LayoutParams(int width, int height) {
@@ -127,44 +107,7 @@ public class WelcomePageLayout extends RelativeLayout implements WelcomePageView
 
         public LayoutParams(Context context, AttributeSet attrs) {
             super(context, attrs);
-            extractAttributes(context, attrs);
-        }
-
-        private void extractAttributes(Context context, AttributeSet attrs) {
-            final TypedArray attributes = context.obtainStyledAttributes(attrs,
-                    R.styleable.WelcomePageLayout_LayoutParams);
-            if (attributes.hasValue(R.styleable.WelcomePageLayout_LayoutParams_view_behavior)) {
-                behavior = parseBehavior(context, attributes
-                        .getString(R.styleable.WelcomePageLayout_LayoutParams_view_behavior));
-            }
-            if (attributes.hasValue(R.styleable.WelcomePageLayout_LayoutParams_destiny)) {
-                destinyViewId = attributes
-                        .getResourceId(R.styleable.WelcomePageLayout_LayoutParams_destiny, NO_DESTINY_VIEW);
-            }
-            attributes.recycle();
-        }
-
-        private WelcomePageBehavior parseBehavior(Context context, String name) {
-            WelcomePageBehavior result = null;
-            if (!TextUtils.isEmpty(name)) {
-                final String fullName;
-                if (name.startsWith(".")) {
-                    fullName = context.getPackageName() + name;
-                } else {
-                    fullName = name;
-                }
-                try {
-                    Class<WelcomePageBehavior> behaviorClazz
-                            = (Class<WelcomePageBehavior>) Class.forName(fullName);
-                    final Constructor<WelcomePageBehavior> mainConstructor
-                            = behaviorClazz.getConstructor();
-                    mainConstructor.setAccessible(true);
-                    result = mainConstructor.newInstance();
-                } catch (Exception e) {
-                    throw new RuntimeException("Could not inflate Behavior subclass " + fullName, e);
-                }
-            }
-            return result;
+            welcomeBehaviorLayoutParams.extractAttributes(context, attrs);
         }
 
         @SuppressWarnings("unused")
