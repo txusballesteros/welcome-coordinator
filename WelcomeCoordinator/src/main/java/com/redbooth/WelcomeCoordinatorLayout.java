@@ -57,12 +57,14 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     public static final int DEF_INDICATOR_SELECTED_COLOR = Color.BLACK;
     private static final float INDICATOR_RADIUS_IN_DP = 4;
     private static final float INDICATOR_RADIUS_PADDING_IN_DP = 10;
+    public static final int NO_INIT_PAGE = -1;
     private WelcomeCoordinatorTouchController touchController;
     private WelcomeCoordinatorPageInflater pageInflater;
     private FrameLayout mainContentView;
     private List<WelcomePageBehavior> behaviors = new ArrayList<>();
     private OnPageScrollListener onPageScrollListener;
     private int pageSelected = 0;
+    private int initPageSelected = NO_INIT_PAGE;
     private int indicatorColorUnselected = DEF_INDICATOR_UNSELECTED_COLOR;
     private int indicatorColorSelected = DEF_INDICATOR_SELECTED_COLOR;
     private Paint indicatorPaintUnselected;
@@ -95,14 +97,14 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         }
         SavedState ss = (SavedState)state;
         super.onRestoreInstanceState(ss.getSuperState());
-        this.pageSelected = ss.pageSelected;
+        this.initPageSelected = ss.initPageSelected;
     }
 
     @Override
     protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         SavedState ss = new SavedState(superState);
-        ss.pageSelected = this.pageSelected;
+        ss.initPageSelected = this.pageSelected;
         return ss;
     }
 
@@ -225,7 +227,10 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
             ViewGroup childAt = (ViewGroup) mainContentView.getChildAt(index);
             configurePageLayout(childAt, index);
         }
-        touchController.scrollToPage(pageSelected);
+        if (initPageSelected != NO_INIT_PAGE) {
+            touchController.scrollToPage(initPageSelected);
+            initPageSelected = NO_INIT_PAGE;
+        }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
@@ -315,7 +320,7 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     }
 
     static class SavedState extends BaseSavedState {
-        int pageSelected;
+        int initPageSelected;
 
         SavedState(Parcelable superState) {
             super(superState);
@@ -323,13 +328,13 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
 
         private SavedState(Parcel in) {
             super(in);
-            this.pageSelected = in.readInt();
+            this.initPageSelected = in.readInt();
         }
 
         @Override
         public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
-            out.writeInt(this.pageSelected);
+            out.writeInt(this.initPageSelected);
         }
 
         public static final Creator<SavedState> CREATOR =
