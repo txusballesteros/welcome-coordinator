@@ -32,6 +32,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -55,12 +57,14 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     public static final int DEF_INDICATOR_SELECTED_COLOR = Color.BLACK;
     private static final float INDICATOR_RADIUS_IN_DP = 4;
     private static final float INDICATOR_RADIUS_PADDING_IN_DP = 10;
+    public static final int NO_INIT_PAGE = -1;
     private WelcomeCoordinatorTouchController touchController;
     private WelcomeCoordinatorPageInflater pageInflater;
     private FrameLayout mainContentView;
     private List<WelcomePageBehavior> behaviors = new ArrayList<>();
     private OnPageScrollListener onPageScrollListener;
     private int pageSelected = 0;
+    private int initPageSelected = NO_INIT_PAGE;
     private int indicatorColorUnselected = DEF_INDICATOR_UNSELECTED_COLOR;
     private int indicatorColorSelected = DEF_INDICATOR_SELECTED_COLOR;
     private Paint indicatorPaintUnselected;
@@ -83,6 +87,25 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
     public WelcomeCoordinatorLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initializeView(context, attrs);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        if(!(state instanceof SavedState)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+        SavedState ss = (SavedState)state;
+        super.onRestoreInstanceState(ss.getSuperState());
+        this.initPageSelected = ss.initPageSelected;
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        SavedState ss = new SavedState(superState);
+        ss.initPageSelected = this.pageSelected;
+        return ss;
     }
 
     @Override
@@ -123,8 +146,8 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
 
     private List<WelcomePageBehavior> extractPageBehaviors(View view) {
         List<WelcomePageBehavior> behaviors = new ArrayList<>();
-        if (view instanceof WelcomePageLayout) {
-            final WelcomePageLayout pageLayout = (WelcomePageLayout) view;
+        if (view instanceof WelcomePageView) {
+            final WelcomePageView pageLayout = (WelcomePageView)view;
             final List<WelcomePageBehavior> pageBehaviors = pageLayout.getBehaviors(this);
             if (!pageBehaviors.isEmpty()) {
                 behaviors.addAll(pageBehaviors);
@@ -203,6 +226,10 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         for (int index = 0; index < getNumOfPages(); index++) {
             ViewGroup childAt = (ViewGroup) mainContentView.getChildAt(index);
             configurePageLayout(childAt, index);
+        }
+        if (initPageSelected != NO_INIT_PAGE) {
+            touchController.scrollToPage(initPageSelected);
+            initPageSelected = NO_INIT_PAGE;
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
@@ -290,6 +317,36 @@ public class WelcomeCoordinatorLayout extends HorizontalScrollView {
         void onScrollPage(View v, float progress, float maximum);
 
         void onPageSelected(View v, int pageSelected);
+    }
+
+    static class SavedState extends BaseSavedState {
+        int initPageSelected;
+
+        SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        private SavedState(Parcel in) {
+            super(in);
+            this.initPageSelected = in.readInt();
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeInt(this.initPageSelected);
+        }
+
+        public static final Creator<SavedState> CREATOR =
+                new Creator<SavedState>() {
+                    public SavedState createFromParcel(Parcel in) {
+                        return new SavedState(in);
+                    }
+
+                    public SavedState[] newArray(int size) {
+                        return new SavedState[size];
+                    }
+                };
     }
 
     private float dp2px(float size) {

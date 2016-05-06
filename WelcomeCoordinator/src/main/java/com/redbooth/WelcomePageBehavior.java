@@ -33,9 +33,9 @@ public abstract class WelcomePageBehavior {
     protected WelcomeCoordinatorLayout coordinatorLayout;
     private View targetView;
     private View destinyView;
-    private WelcomePageLayout page;
+    private WelcomePageView page;
 
-    protected WelcomePageLayout getPage() {
+    protected WelcomePageView getPage() {
         return page;
     }
 
@@ -45,7 +45,7 @@ public abstract class WelcomePageBehavior {
 
     protected View getDestinyView() {
         if (targetView != null && destinyView == null && coordinatorLayout != null) {
-            int destinyViewId = ((WelcomePageLayout.LayoutParams)targetView.getLayoutParams()).getDestinyViewId();
+            int destinyViewId = ((WelcomeLayoutParams)targetView.getLayoutParams()).getDestinyViewId();
             if (destinyViewId != NO_DESTINY_VIEW) {
                 destinyView = coordinatorLayout.findViewById(destinyViewId);
             }
@@ -71,7 +71,7 @@ public abstract class WelcomePageBehavior {
                 });
     }
 
-    void setPage(WelcomePageLayout page) {
+    void setPage(WelcomePageView page) {
         this.page = page;
     }
 

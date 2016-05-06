@@ -40,19 +40,19 @@ public class ParallaxSubtitleBehaviour extends WelcomePageBehavior {
     @Override
     protected void onCreate(WelcomeCoordinatorLayout coordinator) {
         final FrameLayout.LayoutParams params
-                = (FrameLayout.LayoutParams)getPage().getLayoutParams();
+                = (FrameLayout.LayoutParams)((View)getPage()).getLayoutParams();
         long startDelay;
         long duration;
         float rightTranslation;
         float leftTranslation;
         if (params.leftMargin == 0) {
             startDelay = 0;
-            duration = getPage().getMeasuredWidth();
+            duration = ((View)getPage()).getMeasuredWidth();
             rightTranslation = 0;
             leftTranslation = -(duration / PARALLAX_FACTOR);
         } else {
             startDelay = (params.leftMargin - coordinator.getMeasuredWidth());
-            duration = (getPage().getMeasuredWidth() * 2);
+            duration = (((View)getPage()).getMeasuredWidth() * 2);
             rightTranslation = (duration / PARALLAX_FACTOR);
             leftTranslation = -(duration / PARALLAX_FACTOR);
         }

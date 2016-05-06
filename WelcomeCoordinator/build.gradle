@@ -53,6 +53,7 @@ android {
 dependencies {
     def libraryDependencies = globalConfiguration.libraryDependencies
     compile libraryDependencies.AndroidAnnotations
+    compile libraryDependencies.Percent
 }
 publish {
 //    Properties properties = new Properties()

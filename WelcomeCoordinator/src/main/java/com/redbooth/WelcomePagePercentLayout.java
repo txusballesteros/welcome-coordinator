@@ -1,5 +1,5 @@
 /*
- * Copyright Txus Ballesteros 2016 (@txusballesteros)
+ * Copyright Francisco M Sirvent 2016 (@narfss)
  *
  * This file is part of some open source application.
  *
@@ -20,39 +20,38 @@
  * specific language governing permissions and limitations
  * under the License.
  *
- * Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
+ * Contact: Francico M Sirvent <narfss@gmail.com>
  */
 package com.redbooth;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.percent.PercentRelativeLayout;
+import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
 import com.redbooth.welcomecoordinator.R;
 
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.List;
 
-public class WelcomePageLayout extends RelativeLayout implements WelcomePageView {
-    public WelcomePageLayout(Context context) {
+public class WelcomePagePercentLayout extends PercentRelativeLayout implements WelcomePageView {
+    public WelcomePagePercentLayout(Context context) {
         super(context);
     }
 
-    public WelcomePageLayout(Context context, AttributeSet attrs) {
+    public WelcomePagePercentLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public WelcomePageLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public WelcomePagePercentLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-    }
-
-    @SuppressWarnings("unused")
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public WelcomePageLayout(Context context, AttributeSet attrs,
-                             int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     @Override
@@ -80,7 +79,7 @@ public class WelcomePageLayout extends RelativeLayout implements WelcomePageView
         return WelcomeBehaviorsExtract.getWelcomePageBehaviors(this, coordinatorLayout);
     }
 
-    public static class LayoutParams extends RelativeLayout.LayoutParams implements WelcomeLayoutParams {
+    public static class LayoutParams extends PercentRelativeLayout.LayoutParams implements WelcomeLayoutParams {
         private WelcomeBehaviorLayoutParams welcomeBehaviorLayoutParams = new WelcomeBehaviorLayoutParams();
 
         @Override
@@ -112,7 +111,7 @@ public class WelcomePageLayout extends RelativeLayout implements WelcomePageView
 
         @SuppressWarnings("unused")
         @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-        public LayoutParams(RelativeLayout.LayoutParams source) {
+        public LayoutParams(PercentRelativeLayout.LayoutParams source) {
             super(source);
         }
     }
